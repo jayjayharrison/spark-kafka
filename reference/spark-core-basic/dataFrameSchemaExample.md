@@ -72,6 +72,42 @@ scala> df_inferSchema.show()
 ```
 
 ## raw text file
+val df_raw = spark.read
+  .format("csv")
+  .option("header", "false")
+  .option("inferSchema", "true") 
+  .option("nullValue", "NA")
+  .option("timestampFormat", "yyyy-MM-dd'T'HH:mm?:ss")
+  .option("mode", "failfast")
+  .option("path", "data/people_raw.txt")
+  .load()
+  
+scala> df_raw.show()
++-----+---+------+-------------------+----+
+|  _c0|_c1|   _c2|                _c3| _c4|
++-----+---+------+-------------------+----+
+|  jay| 56|  Male|2014-08-27 11:29:31|null|
+|helen| 52|Female|2014-08-27 11:29:31|null|
++-----+---+------+-------------------+----+
+
+## raw text file with pipe | delimiter
+
+val df_raw_pipe = spark.read
+  .format("csv")
+  .option("delimiter", "|")
+  .option("header", "false")
+  .option("inferSchema", "true") 
+  .option("nullValue", "NA")
+  .option("timestampFormat", "yyyy-MM-dd'T'HH:mm?:ss")
+  .option("mode", "failfast")
+  .option("path", "data/people_pipe.txt")
+  .load()
++-----+---+------+-------------------+----+
+|  _c0|_c1|   _c2|                _c3| _c4|
++-----+---+------+-------------------+----+
+|  jay| 56|  Male|2014-08-27 11:29:31|null|
+|helen| 52|Female|2014-08-27 11:29:31|null|
++-----+---+------+-------------------+----+
 
 
 

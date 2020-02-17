@@ -33,5 +33,5 @@ session save
 
 exit # build.sbt created
 
-
+for scala REPL , run: sbt console
 

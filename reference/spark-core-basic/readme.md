@@ -31,7 +31,13 @@ val df = spark.read
   .option("path", "survey.csv")
   .load()
 ```
-
+## Writer
+```
+df.write
+  .format("parquet")
+  .mode("overwrite")
+  .save("/home/prashant/spark-data/mental-health-in-tech-survey/parquet-data/")
+```
 
 ## RDD
 ```

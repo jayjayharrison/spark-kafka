@@ -6,4 +6,4 @@ tar zvxf sbt-1.3.8.tgz
 
 vi ~/.profile
 
-![Image1](https://github.com/jayjayjohn/spark/edit/master/reference/install_sbt/Capture.PNG)
+![Image1](https://github.com/jayjayjohn/spark/blob/master/reference/install_sbt/Capture.PNG)

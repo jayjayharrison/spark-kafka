@@ -37,6 +37,9 @@ val df = spark.read
 ```
 df.write
   .format("parquet")
+  .partitionBy("column_name")
+  .bucketBy("column_name")
+  .sortBy("column_name")
   .mode("overwrite") //append|overwrite|errorIfExists|ignore
   .save("path")
 ```

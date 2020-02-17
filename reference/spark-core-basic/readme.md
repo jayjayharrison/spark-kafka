@@ -1,6 +1,8 @@
 # spark-core-basic
-##data/people.json      {"name":"jay","age",39},{"name":"Linsey","age",22}
+## DataFrame Load Json
+
 ```
+data/people.json      {"name":"jay","age",39},{"name":"Linsey","age",22}
 val df = spark.read.json("data/people.json")
 df.filter("age > 30").select("name", "age").show()
 //for a list of Methods inherited from class org.apache.spark.sql.Column, https://spark.apache.org/docs/1.6.0/api/java/org/apache/spark/sql/ColumnName.html
@@ -17,8 +19,21 @@ df.createOrReplaceTempView("people")
 spark.sql("SELECT * FROM people where age > 21").show()
 
 ```
+## Load CSV with options
+```
+val df = spark.read
+  .format("csv")
+  .option("header", "true")
+  .option("inferSchema", "true")
+  .option("nullValue", "NA")
+  .option("timestampFormat", "yyyy-MM-dd'T'HH:mm?:ss")
+  .option("mode", "failfast")
+  .option("path", "survey.csv")
+  .load()
+```
 
-##RDD
+
+## RDD
 ```
 sudo find / > flist.txt # list all directory to flist.txt 
 //hadoop fs -copyFromLocal flist.txt /user/jay

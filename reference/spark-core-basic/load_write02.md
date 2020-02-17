@@ -1,3 +1,4 @@
+Copy from https://www.learningjournal.guru/courses/spark/spark-foundation-training/file-based-data-sources/
 1. Read CSV -> Write Parquet
 2. Read Parquet -> Write JSON
 3. Read JSON -> Write ORC

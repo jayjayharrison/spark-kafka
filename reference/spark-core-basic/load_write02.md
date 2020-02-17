@@ -1,9 +1,9 @@
-1.Read CSV -> Write Parquet
-2.Read Parquet -> Write JSON
-3.Read JSON -> Write ORC
-4.Read ORC -> Write XML
-5.Read XML -> Write AVRO
-6.Read AVRO -> Write CSV
+1. Read CSV -> Write Parquet
+2. Read Parquet -> Write JSON
+3. Read JSON -> Write ORC
+4. Read ORC -> Write XML
+5. Read XML -> Write AVRO
+6. Read AVRO -> Write CSV
 
 
 ```

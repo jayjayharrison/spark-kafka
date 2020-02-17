@@ -13,6 +13,11 @@ val surveySchema = StructType(
 ```
 ## clean csv file with header and string double quoted 
 ```
+people.csv
+"name","age","gender","timestamp","comment"
+"jay",56,"Male",2014-08-27 11:29:31,NA
+"helen",52,"Female",2014-08-27 11:29:31,NA
+
 :paste
 val df = spark.read
   .format("csv")
@@ -34,6 +39,9 @@ df.show()
 ```
 ## No header csv file and string double quoted 
 ```
+"jay",56,"Male",2014-08-27 11:29:31,NA
+"helen",52,"Female",2014-08-27 11:29:31,NA
+
 :paste
 val df = spark.read
   .format("csv")
@@ -72,6 +80,10 @@ scala> df_inferSchema.show()
 ```
 
 ## raw text file
+```
+jay,56,Male,2014-08-27 11:29:31,NA
+helen,52,Female,2014-08-27 11:29:31,NA
+
 val df_raw = spark.read
   .format("csv")
   .option("header", "false")
@@ -89,12 +101,13 @@ scala> df_raw.show()
 |  jay| 56|  Male|2014-08-27 11:29:31|null|
 |helen| 52|Female|2014-08-27 11:29:31|null|
 +-----+---+------+-------------------+----+
+```
 
-## raw text file with pipe | delimiter
-
+## raw text file with pipe/other delimiter .option("delimiter", "|")
+```
 val df_raw_pipe = spark.read
   .format("csv")
-  .option("delimiter", "|")
+  .option("delimiter", "|") 
   .option("header", "false")
   .option("inferSchema", "true") 
   .option("nullValue", "NA")
@@ -109,19 +122,7 @@ val df_raw_pipe = spark.read
 |helen| 52|Female|2014-08-27 11:29:31|null|
 +-----+---+------+-------------------+----+
 
+```
 
 
 
-people.csv
-"name","age","gender","timestamp","comment"
-"jay",56,"Male",2014-08-27 11:29:31,NA
-"helen",52,"Female",2014-08-27 11:29:31,NA
-
-
-people_noheader.csv
-"jay",56,"Male",2014-08-27 11:29:31,NA
-"helen",52,"Female",2014-08-27 11:29:31,NA
-
-people_raw.txt
-jay,56,Male,2014-08-27 11:29:31,NA
-helen,52,Female,2014-08-27 11:29:31,NA

@@ -33,5 +33,5 @@ session save
 
 exit # build.sbt created
 
-for scala REPL , run: sbt console
+for scala REPL , run: sbt console # if start console in the current project dir, all dependency , object/class will be pulled to scala session
 

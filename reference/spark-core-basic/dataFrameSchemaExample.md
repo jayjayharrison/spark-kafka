@@ -10,7 +10,7 @@ val surveySchema = StructType(
     StructField("comment", StringType, true)
   )
 )
-
+Or define schema using a DDL like string
 val df= spark.read.schema("a STRING, b Int, c STRING, D TimeStamp").format("csv").load("data/people_raw.txt")
 ```
 ## clean csv file with header and string double quoted 

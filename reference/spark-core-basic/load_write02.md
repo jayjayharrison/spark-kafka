@@ -6,7 +6,7 @@ Copy from https://www.learningjournal.guru/courses/spark/spark-foundation-traini
 5. Read XML -> Write AVRO
 6. Read AVRO -> Write CSV
 
-
+### 1.Read CSV -> Write Parquet
 ```
 //Read CSV into Data Frame
 val df = spark.read
@@ -24,6 +24,7 @@ df.write
   .mode("overwrite")
   .save("/home/prashant/spark-data/mental-health-in-tech-survey/parquet-data/")
 ```
+### 2. Read Parquet -> Write JSON
 ```
 //Read Parquet into Data Frame
 val df = spark.read
@@ -38,7 +39,7 @@ df.write
   .mode("overwrite")
   .save("/home/prashant/spark-data/mental-health-in-tech-survey/json-data/")
 ```
-
+### 3. Read JSON -> Write ORC
 ```
 //Read JSON into Data Frame
 val df = spark.read
@@ -53,7 +54,7 @@ df.write
   .mode("overwrite")
   .save("/home/prashant/spark-data/mental-health-in-tech-survey/orc-data/")
 ```
-
+### 4. Read ORC -> Write XML
 
 spark-shell --packages com.databricks:spark-xml_2.11:0.4.1,com.databricks:spark-avro_2.11:4.0.0 
 

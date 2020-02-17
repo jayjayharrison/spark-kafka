@@ -11,7 +11,7 @@ val surveySchema = StructType(
   )
 )
 ```
-//clean csv file with header and string double quoted 
+## clean csv file with header and string double quoted 
 ```
 :paste
 val df = spark.read
@@ -32,7 +32,7 @@ df.show()
 +-----+---+------+-------------------+-------+
 
 ```
-//clean csv file with No header and string double quoted 
+## No header csv file and string double quoted 
 ```
 :paste
 val df = spark.read
@@ -52,7 +52,26 @@ df.show()
 |helen| 52|Female|2014-08-27 11:29:31|   null|
 +-----+---+------+-------------------+-------+
 
+val df_inferSchema = spark.read
+  .format("csv")
+  .option("header", "false")
+  .option("inferSchema", "true") 
+  .option("nullValue", "NA")
+  .option("timestampFormat", "yyyy-MM-dd'T'HH:mm?:ss")
+  .option("mode", "failfast")
+  .option("path", "data/people_noheader.csv")
+  .load()
+scala> df_inferSchema.show()
++-----+---+------+-------------------+----+
+|  _c0|_c1|   _c2|                _c3| _c4|
++-----+---+------+-------------------+----+
+|  jay| 56|  Male|2014-08-27 11:29:31|null|
+|helen| 52|Female|2014-08-27 11:29:31|null|
++-----+---+------+-------------------+----+
+
 ```
+
+## raw text file
 
 
 

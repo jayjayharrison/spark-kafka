@@ -22,3 +22,16 @@ object helloWorld{
 ```
 
 sbt run helloWorld.scala
+
+run sbt again to sbt cli
+
+set libraryDependencies += "org.apache.spark" % "spark-core_2.11" % "2.0.2"
+
+show libraryDependencies
+
+session save
+
+exit # build.sbt created
+
+
+

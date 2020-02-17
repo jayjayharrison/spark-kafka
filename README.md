@@ -20,4 +20,4 @@ val fcountRDD = kwRDD.reduceByKey( (x,y)=> x+y )        #
 fcountRDD.collect()                                     # return result RDD to driver 
 
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![Image1]()

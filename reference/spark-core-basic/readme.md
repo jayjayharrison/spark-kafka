@@ -33,7 +33,7 @@ val df = spark.read
   .option("path", "survey.csv")
   .load()
 ```
-## Writer
+## Writer with partition
 ```
 df.write
   .format("parquet")

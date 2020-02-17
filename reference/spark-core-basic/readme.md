@@ -35,8 +35,8 @@ val df = spark.read
 ```
 df.write
   .format("parquet")
-  .mode("overwrite")
-  .save("/home/prashant/spark-data/mental-health-in-tech-survey/parquet-data/")
+  .mode("overwrite") //append|overwrite|errorIfExists|ignore
+  .save("path")
 ```
 
 ## RDD

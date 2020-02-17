@@ -21,6 +21,8 @@ spark.sql("SELECT * FROM people where age > 21").show()
 ```
 ## Load CSV with options
 ```
+val df = spark.read.csv("data/people.csv")
+or 
 val df = spark.read
   .format("csv")
   .option("header", "true")

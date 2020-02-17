@@ -10,4 +10,11 @@ mkdir sbt_workspace # to store all your sbt project
 
 mkdir sbt_test_project 
 
-cd into test project then run sbt
+cd into test project then vi helloWorld.scala
+put bellow code into helloWorld.scala
+        object helloWorld{
+          def main(args: Array[String]): Unit = {
+            println("Hello, world!")
+          }
+        }
+sbt run helloWorld.scala

@@ -24,7 +24,7 @@ spark.sql("SELECT * FROM people where age > 21").show()
 val df = spark.read
   .format("csv")
   .option("header", "true")
-  .option("inferSchema", "true")
+  .option("inferSchema", "true") // inferSchema will allow spark to automatecally map the DDL. It is recommanded to define your own schema when loading untyped file such as csv/json. See spark-df-schema
   .option("nullValue", "NA")
   .option("timestampFormat", "yyyy-MM-dd'T'HH:mm?:ss")
   .option("mode", "failfast")

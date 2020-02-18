@@ -18,28 +18,34 @@ df.select($"name", $"age" + 1,$"name".isNull,$"name".substr(1,1).alias("Initial"
 
 df.createOrReplaceTempView("people")
 spark.sql("SELECT * FROM people where age > 21").show()
-'''
-
+```
 // aggregation
-'''
+```
 val df_cnt = df.groupby("age").count()
-'''
-
+```
 // window function - find eldest person in a group 
-'''
+```
 val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.partitionBy("some_group"))
     .filter($"age" === $"eldest_person_in_a_group")
-'''
+
+val df2 = df.withColumn("eldest_person_in_a_group", rank() over Window.partitionBy("some_group").orderby("age") as rnk)
+    .filter($"rnk"=1)
+```
+
 // window function - find highest 3 salary in each dept 
-'''
+```
 val partitionWindow = Window.partitionBy($"dept").orderBy($"salary".desc)
 val rankTest = rank().over(partitionWindow)
 employee.select($"*", rankTest as "rank").filter($"rank" < 4)show
-'''
+
+OR
+
+employee.select($"*", rank().over(Window.partitionBy($"dept").orderBy($"salary".desc)) as "rank").filter($"rank" < 4)show
+
+```
 
 //join
-
-'''
+```
 people.filter("age > 30")
      .join(department, people("deptId") === department("id"))
      .groupBy(department("name"), "gender")

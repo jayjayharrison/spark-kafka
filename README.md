@@ -20,6 +20,10 @@ df.select($"age").agg
 df.createOrReplaceTempView("people")
 spark.sql("SELECT * FROM people where age > 21").show()
 
+
+val df_cnt = df.groupby("age").count()
+
+
 //join 
    people.filter("age > 30")
      .join(department, people("deptId") === department("id"))

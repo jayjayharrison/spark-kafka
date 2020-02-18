@@ -41,6 +41,23 @@ object SparkTestApp {
   .enableHiveSupport()
   .getOrCreate()
 
+
+//Create a local function
+  val parseGender = (s: String) => {
+   if (List("cis female", "f", "female", "woman", "femake", "female ",
+     "cis-female/femme", "female (cis)", "femail").contains(s.toLowerCase))
+    "Female"
+   else if (List("male", "m", "male-ish", "maile", "mal", "male (cis)",
+     "make", "male ", "man", "msle", "mail", "malr", "cis man", "cis male").contains(s.toLowerCase))
+    "Male"
+   else
+    "Transgender"
+  }
+
+  //Register the function as UDF
+  spark.udf.register("PGENDER", parseGender)
+
+
   spark.sql("""select * from hivesampletable limit 5""")
    .write
    .format("csv")

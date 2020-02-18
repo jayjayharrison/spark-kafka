@@ -1,14 +1,15 @@
 package application using sbt 
 
 below is the file structure of sbt project 
-
+```
 project
   -build.sbt
   -src
     -main
       -scala
         -test.scala
-        
+```
+
 in build.sbt manage your dependency 
 ```
 name := "spark Test App"

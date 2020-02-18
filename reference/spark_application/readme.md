@@ -42,23 +42,21 @@ object SparkTestApp {
   .getOrCreate()
 
 
-//Create a local function
-  val parseGender = (s: String) => {
-   if (List("cis female", "f", "female", "woman", "femake", "female ",
-     "cis-female/femme", "female (cis)", "femail").contains(s.toLowerCase))
-    "Female"
-   else if (List("male", "m", "male-ish", "maile", "mal", "male (cis)",
-     "make", "male ", "man", "msle", "mail", "malr", "cis man", "cis male").contains(s.toLowerCase))
-    "Male"
+  //Create a local function
+  val parseOS = (s: String) => {
+   if (List("apple","app","iphone","ipad","mac").contains(s.toLowerCase))
+    "IOS"
    else
-    "Transgender"
+    "Android"
   }
 
   //Register the function as UDF
   spark.udf.register("PGENDER", parseGender)
+  spark.udf.register("strlen", (s: String) => s.length)
+  spark.udf.register("priceGroup", (p:Int ) => if (p > 1000) "High" else "Low")
 
 
-  spark.sql("""select * from hivesampletable limit 5""")
+  spark.sql("""select *, strlen(state),parseOS(devicemake) as operatingsystem from hivesampletable limit 5""")
    .write
    .format("csv")
    .save("file:///home/sshuser/out/")

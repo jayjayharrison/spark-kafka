@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# this should be run after you have uploaded your jar to S3
+
+aws emr add-steps --cluster-id j-2HEVS5ZHH376R \
+    --region us-east-1\
+    --steps Type=Spark,\
+Name="aws-meetup-rio-2016-streaming",\
+Args=[--class,com.queirozf.StreamingExample,\
+--master,yarn-cluster,\
+s3://aws-meetup-rio-2016/aws-meetup-april-2016-assembly-1.0.jar\
+]

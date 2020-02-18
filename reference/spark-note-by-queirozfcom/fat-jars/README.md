@@ -1,0 +1,1 @@
+Sample project to show how to structure a project and generate a full (*fat*) JAR containing all dependencies of a spark project.

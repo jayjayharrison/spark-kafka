@@ -14,7 +14,7 @@ project
 ```
 name := "spark Test App"
 version := "0.1"
-organization := "guru.learningjournal"
+organization := "com.jay.app"
 scalaVersion := "2.11.8"
 val sparkVersion = "2.2.0"
 
@@ -29,7 +29,7 @@ resolvers += "confluent" at "http://packages.confluent.io/maven/"
 
 ### test.scala
 ```
-package guru.learningjournal.examples
+package com.jay.app.examples
 
 import org.apache.spark.sql._
 import org.apache.spark.sql.types._
@@ -51,7 +51,7 @@ object SparkTestApp {
   }
 
   //Register the function as UDF
-  spark.udf.register("PGENDER", parseGender)
+  spark.udf.register("parseOS", parseOS)
   spark.udf.register("strlen", (s: String) => s.length)
   spark.udf.register("priceGroup", (p:Int ) => if (p > 1000) "High" else "Low")
 
@@ -69,6 +69,6 @@ object SparkTestApp {
 Run 'sbt package' on project root directory, then jar file will be created at target folder
 
 ```
-spark-submit --master local --class guru.learningjournal.examples.SparkTestApp target/scala-2.11/spark-test-app_2.11-0.1.jar InputIfAny
+spark-submit --master local --class com.jay.app.examples.SparkTestApp target/scala-2.11/spark-test-app_2.11-0.1.jar InputIfAny
 ```
 

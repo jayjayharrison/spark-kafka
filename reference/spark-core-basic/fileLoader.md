@@ -13,6 +13,9 @@ val surveySchema = StructType(
 )
 Or define schema using a DDL like string
 val df= spark.read.schema("a STRING, b Int, c STRING, D TimeStamp").format("csv").load("data/people_raw.txt")
+
+or with csv api
+val df = spark.read.csv("data/people_noheader.csv")
 ```
 ## clean csv file with header and string double quoted 
 ```

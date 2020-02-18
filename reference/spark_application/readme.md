@@ -51,7 +51,7 @@ object SparkTestApp {
 
 ```
 
-Run sbt package on project root directory, then jar file will be created at target folder
+Run 'sbt package' on project root directory, then jar file will be created at target folder
 
 ```
 spark-submit --master local --class guru.learningjournal.examples.SparkTestApp target/scala-2.11/spark-test-app_2.11-0.1.jar InputIfAny

@@ -9,7 +9,6 @@ df.filter("age > 30").select("name", "age").show()
 
 df.select($"name", $"age" + 1,$"name".isNull,$"name".substr(1,1).alias("Initial"),when($"age">30,"mid age").when($"age"<=30,"younge").otherwise("na").alias("age group")).show()
 
-df.select($"age").agg
 +------+---------+--------------+-------+---------+
 |  name|(age + 1)|(name IS NULL)|Initial|age group|
 +------+---------+--------------+-------+---------+
@@ -19,28 +18,32 @@ df.select($"age").agg
 
 df.createOrReplaceTempView("people")
 spark.sql("SELECT * FROM people where age > 21").show()
+'''
 
 // aggregation
+'''
 val df_cnt = df.groupby("age").count()
+'''
 
 // window function - find eldest person in a group 
+'''
 val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.partitionBy("some_group"))
     .filter($"age" === $"eldest_person_in_a_group")
-
+'''
 // window function - find highest 3 salary in each dept 
+'''
 val partitionWindow = Window.partitionBy($"dept").orderBy($"salary".desc)
 val rankTest = rank().over(partitionWindow)
 employee.select($"*", rankTest as "rank").filter($"rank" < 4)show
+'''
 
-//join 
-   people.filter("age > 30")
+//join
+
+'''
+people.filter("age > 30")
      .join(department, people("deptId") === department("id"))
      .groupBy(department("name"), "gender")
      .agg(avg(people("salary")), max(people("age")))
-
-
-
-
 ```
 ## Load CSV with options
 ```

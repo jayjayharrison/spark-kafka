@@ -8,8 +8,8 @@ dfout.write
   .option("driver", "org.postgresql.Driver")
   .option("url", "jdbc:postgresql://10.128.0.4:5432/sparkDB")
   .option("dbtable", "survey_results")
-  .option("user", "prashant")
-  .option("password", "pandey")
+  .option("user", "jay")
+  .option("password", "jay123")
   .save()
 
 // read from table

@@ -1,6 +1,6 @@
-package application using sbt 
+# package application using sbt 
 
-below is the file structure of sbt project 
+## below is the file structure you need to create
 ```
 project
   -build.sbt
@@ -10,7 +10,7 @@ project
         -test.scala
 ```
 
-in build.sbt manage your dependency 
+### in build.sbt manage your dependency 
 ```
 name := "spark Test App"
 version := "0.1"
@@ -27,7 +27,7 @@ libraryDependencies ++= Seq(
 resolvers += "confluent" at "http://packages.confluent.io/maven/"
 ```
 
-test.scala
+### test.scala
 ```
 package guru.learningjournal.examples
 

@@ -133,6 +133,22 @@ empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc
 | 7698|BLAKE|  MANAGER|7839| 1-May-81|2850|   0|    30|   1|
 +-----+-----+---------+----+---------+----+----+------+----+
 
+empDF.groupBy($"deptno",$"job").agg(min($"sal"),max($"sal")).show()
++------+---------+--------+--------+
+|deptno|      job|min(sal)|max(sal)|
++------+---------+--------+--------+
+|    20|  ANALYST|    3000|    3000|
+|    20|  MANAGER|    2975|    2975|
+|    30|  MANAGER|    2850|    2850|
+|    30| SALESMAN|    1250|    1600|
+|    20|    CLERK|    1100|    1100|
+|    10|PRESIDENT|    5000|    5000|
+|    10|    CLERK|     800|     800|
+|    10|  MANAGER|    2450|    2450|
++------+---------+--------+--------+
+
+
+
 empDF.groupBy($"deptno",$"job").count().show()
 +------+---------+-----+
 |deptno|      job|count|
@@ -146,7 +162,7 @@ empDF.groupBy($"deptno",$"job").count().show()
 |    10|    CLERK|    1|
 |    10|  MANAGER|    1|
 +------+---------+-----+
-    
+ 
     
 ```
 

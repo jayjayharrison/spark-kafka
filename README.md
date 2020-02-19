@@ -28,7 +28,7 @@ val df_cnt = df.groupby("age").count()
 val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.partitionBy("some_group"))
     .filter($"age" === $"eldest_person_in_a_group")
 
-val df2 = df.withColumn("eldest_person_in_a_group", rank() over Window.partitionBy("some_group").orderby("age") as rnk)
+val df2 = df.withColumn("eldest_person_in_a_group", rank() over Window.partitionBy("some_group").orderBy("age") as rnk)
     .filter($"rnk"=1)
 ```
 

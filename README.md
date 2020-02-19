@@ -29,7 +29,7 @@ val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.parti
     .filter($"age" === $"eldest_person_in_a_group")
 
 val df2 = df.withColumn("eldest_person_in_a_group", rank() over Window.partitionBy("some_group").orderBy("age") as rnk)
-    .filter($"rnk"=1)
+    .filter($"rnk"=== 1)
 ```
 
 // window function - find highest 3 salary in each dept 
@@ -38,12 +38,18 @@ val partitionWindow = Window.partitionBy($"dept").orderBy($"salary".desc)
 val rankTest = rank().over(partitionWindow)
 employee.select($"*", rankTest as "rank").filter($"rank" < 4)show
 
-OR
+//OR
 
-employee.select($"*", rank().over(Window.partitionBy($"dept").orderBy($"salary".desc)) as "rank").filter($"rank" < 4)show
+empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc)) as "rank").filter($"rank" < 2)show
 
+//withColumn
+empDF.withColumn("rank", rank() over Window.partitionBy("deptno").orderBy($"sal".desc)).filter($"rank" === 1).show()
 ```
-
+//find min salary, with rowFrame,   unboundedfllowwing represent last row on a desc ordering  
+ default window frame is range between unbounded preceding and current row, then in desc ordering, current row is always the last
+```
+empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal".desc).rowsBetween(Window.currentRow, Window.unboundedFollowing)) as "rank").show
+```
 //join
 ```
 people.filter("age > 30")

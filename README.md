@@ -2,6 +2,7 @@
 ## DataFrame Load Json and Transformation
 
 ```
+
 data/people.json      {"name":"jay","age",39},{"name":"Linsey","age",22}
 val df = spark.read.json("data/people.json")
 df.filter("age > 30").select("name", "age").show()
@@ -99,7 +100,55 @@ val fcountRDD = kvRDD.reduceByKey( (x,y)=> x+y )
 fcountRDD.collect() # return result RDD to driver
 ```
 
+```
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.expressions.Window
+import org.apache.spark.sql.functions._
 
+// Create Spark Session
+val sparkSession = SparkSession.builder.master("local").appName("Window Function").getOrCreate()
+import sparkSession.implicits._
+
+// Create Sample Dataframe
+val empDF = sparkSession.createDataFrame(Seq(
+      (7369, "SMITH", "CLERK", 7902, "17-Dec-80", 800, 20, 10),
+      (7499, "ALLEN", "SALESMAN", 7698, "20-Feb-81", 1600, 300, 30),
+      (7521, "WARD", "SALESMAN", 7698, "22-Feb-81", 1250, 500, 30),
+      (7566, "JONES", "MANAGER", 7839, "2-Apr-81", 2975, 0, 20),
+      (7654, "MARTIN", "SALESMAN", 7698, "28-Sep-81", 1250, 1400, 30),
+      (7698, "BLAKE", "MANAGER", 7839, "1-May-81", 2850, 0, 30),
+      (7782, "CLARK", "MANAGER", 7839, "9-Jun-81", 2450, 0, 10),
+      (7788, "SCOTT", "ANALYST", 7566, "19-Apr-87", 3000, 0, 20),
+      (7839, "KING", "PRESIDENT", 0, "17-Nov-81", 5000, 0, 10),
+      (7844, "TURNER", "SALESMAN", 7698, "8-Sep-81", 1500, 0, 30),
+      (7876, "ADAMS", "CLERK", 7788, "23-May-87", 1100, 0, 20)
+    )).toDF("empno", "ename", "job", "mgr", "hiredate", "sal", "comm", "deptno")
+	
+empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc)) as "rank").filter($"rank" < 2).show
++-----+-----+---------+----+---------+----+----+------+----+
+|empno|ename|      job| mgr| hiredate| sal|comm|deptno|rank|
++-----+-----+---------+----+---------+----+----+------+----+
+| 7788|SCOTT|  ANALYST|7566|19-Apr-87|3000|   0|    20|   1|
+| 7839| KING|PRESIDENT|   0|17-Nov-81|5000|   0|    10|   1|
+| 7698|BLAKE|  MANAGER|7839| 1-May-81|2850|   0|    30|   1|
++-----+-----+---------+----+---------+----+----+------+----+
+
+empDF.groupBy($"deptno",$"job").count().show()
++------+---------+-----+
+|deptno|      job|count|
++------+---------+-----+
+|    20|  ANALYST|    1|
+|    20|  MANAGER|    1|
+|    30|  MANAGER|    1|
+|    30| SALESMAN|    4|
+|    10|PRESIDENT|    1|
+|    20|    CLERK|    1|
+|    10|    CLERK|    1|
+|    10|  MANAGER|    1|
++------+---------+-----+
+    
+    
+```
 
 sudo find / > flist.txt                # list all directory to flist.txt
 hadoop fs -ls /user

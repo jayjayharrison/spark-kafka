@@ -1,6 +1,6 @@
-# spark-core-basic
-## DataFrame Load Json and Transformation
+# spark-core-quick-start
 
+## DataFrame Load Json and Transformation
 ```
 
 data/people.json      {"name":"jay","age",39},{"name":"Linsey","age",22}

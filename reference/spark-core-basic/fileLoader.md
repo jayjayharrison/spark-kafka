@@ -1,5 +1,4 @@
-
-https://www.learningjournal.guru/courses/spark/spark-foundation-training/spark-sql-over-dataframe/'
+### defind schema
 ```
 import org.apache.spark.sql.types._
 val surveySchema = StructType(
@@ -11,13 +10,16 @@ val surveySchema = StructType(
     StructField("comment", StringType, true)
   )
 )
-Or define schema using a DDL like string
+```
+### Or define schema using a DDL like string
+```
 val df= spark.read.schema("a STRING, b Int, c STRING, D TimeStamp").format("csv").load("data/people_raw.txt")
-
-or with csv api
+```
+### or with csv api
+```
 val df = spark.read.csv("data/people_noheader.csv")
 ```
-## clean csv file with header and string double quoted 
+### load clean csv file with header and string double quoted 
 ```
 people.csv
 "name","age","gender","timestamp","comment"
@@ -43,7 +45,7 @@ df.show()
 +-----+---+------+-------------------+-------+
 
 ```
-## No header csv file and string double quoted 
+### load No header csv file and string double quoted 
 ```
 "jay",56,"Male",2014-08-27 11:29:31,NA
 "helen",52,"Female",2014-08-27 11:29:31,NA
@@ -65,7 +67,9 @@ df.show()
 |  jay| 56|  Male|2014-08-27 11:29:31|   null|
 |helen| 52|Female|2014-08-27 11:29:31|   null|
 +-----+---+------+-------------------+-------+
-
+```
+### load csv with inferSchema
+```
 val df_inferSchema = spark.read
   .format("csv")
   .option("header", "false")
@@ -84,8 +88,7 @@ scala> df_inferSchema.show()
 +-----+---+------+-------------------+----+
 
 ```
-
-## raw text file
+### raw text file
 ```
 jay,56,Male,2014-08-27 11:29:31,NA
 helen,52,Female,2014-08-27 11:29:31,NA
@@ -109,7 +112,7 @@ scala> df_raw.show()
 +-----+---+------+-------------------+----+
 ```
 
-## raw text file with pipe/other delimiter .option("delimiter", "|")
+### raw text file with pipe/other delimiter .option("delimiter", "|")
 ```
 val df_raw_pipe = spark.read
   .format("csv")

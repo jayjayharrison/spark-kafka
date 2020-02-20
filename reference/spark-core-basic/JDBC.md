@@ -26,10 +26,11 @@ pgDF_table.show
 
 ```
 jdbc shortcut api
+````
 def jdbc(url: String, table: String, columnName: String, lowerBound: Long, upperBound: Long, numPartitions: Int, connectionProperties: Properties): DataFrame
     Permalink
     Construct a DataFrame representing the database table accessible via JDBC URL url named table.
-
+```
 https://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.DataFrameReader
 
 ### other install postgres client on your machine
@@ -38,7 +39,6 @@ check your linux os info run:hostnamectl
 
 psql --host=<servername> --port=<port> --username=<user@servername> --dbname=<dbname>
 psql --host=jaypsql.postgres.database.azure.com --port=5432 --username=jaypsqladmin@jaypsql --dbname=postgres % ceated by default 
-
 
 show hba_file; # PostgreSQL Client Authentication Configuration File and vi editor the path 
 

@@ -106,11 +106,11 @@ import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions._
 
 // Create Spark Session
-val sparkSession = SparkSession.builder.master("local").appName("Window Function").getOrCreate()
+val spark = SparkSession.builder.master("local").appName("Window Function").getOrCreate()
 import sparkSession.implicits._
 
 // Create Sample Dataframe
-val empDF = sparkSession.createDataFrame(Seq(
+val empDF = spark.createDataFrame(Seq(
       (7369, "SMITH", "CLERK", 7902, "17-Dec-80", 800, 20, 10),
       (7499, "ALLEN", "SALESMAN", 7698, "20-Feb-81", 1600, 300, 30),
       (7521, "WARD", "SALESMAN", 7698, "22-Feb-81", 1250, 500, 30),

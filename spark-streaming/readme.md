@@ -43,4 +43,6 @@ PATH="/usr/local/bin:/usr/bin:/bin"
 cat /var/log/syslog | grep 'CRON' | tail -n10
 
 cat /home/sshuser/data/spark-stream/*.data
+
+echo "hello world" > /home/sshuser/data/spark-stream/$(date '+%m%d%Y_%H%M%S').txt
 ```

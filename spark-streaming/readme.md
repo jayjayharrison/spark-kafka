@@ -24,7 +24,7 @@ ssc.awaitTermination()
 mkdir -p /home/sshuser/data/spark-stream/
 crontab -e 
 ```
-### put below code into crontab file
+### put below code into crontab file (this doesnt work b/c spark will only read new file name, try to create a base script and echo to a new file each time)
 ```
 MAILTO=""
 PATH="/usr/local/bin:/usr/bin:/bin"

@@ -1,4 +1,4 @@
-### defind schema
+### define schema
 ```
 import org.apache.spark.sql.types._
 val surveySchema = StructType(

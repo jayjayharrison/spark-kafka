@@ -1,5 +1,16 @@
 # spark-core-quick-start
 
+create spark session 
+```
+import org.apache.spark.sql.SparkSession
+val spark = SparkSession.builder
+.appName("SparkSessionExample") 
+.master("local[4]") 
+.config("spark.sql.warehouse.dir", "target/spark-warehouse")
+.enableHiveSupport() //enables access to Hive metastore, Hive serdes, and Hive udfs.
+.getOrCreate
+```
+
 ## DataFrame Load Json and Transformation
 ```
 

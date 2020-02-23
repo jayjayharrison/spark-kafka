@@ -15,7 +15,7 @@ kafka_2.12-2.4.0/bin/zookeeper-server-start.sh kafka_2.12-2.4.0/config/zookeeper
 ```
 jps -l
 kafka_2.12-2.4.0/bin/kafka-server-start.sh kafka_2.12-2.4.0/config/server.properties 
-# nohup kafka_2.12-2.4.0/bin/kafka-server-start.sh kafka_2.12-2.4.0/config/server.properties > nohup.out 2> nohup.err < /dev/null &
+# nohup kafka_2.12-2.4.0/bin/kafka-server-start.sh kafka_2.12-2.4.0/config/server.properties > ~/kafka_nohup.out 2> ~/kafka_nohup.err < /dev/null &
 # jobs -l # to list running nohup job in current shell session. OR ps -ef | grep "nohup "
 
 ```

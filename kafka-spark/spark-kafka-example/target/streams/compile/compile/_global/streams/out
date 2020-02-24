@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/home/jay/sbt_workspace/spark-kafka-example/src/main/scala/kafkaWordCount.scala:21:5: not found: value StreamingExamples[0m
+[0m[[0m[31merror[0m] [0m[0m    StreamingExamples.setStreamingLogLevels()[0m
+[0m[[0m[31merror[0m] [0m[0m    ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

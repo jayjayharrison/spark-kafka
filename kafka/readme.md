@@ -1,1 +1,1 @@
-/usr/hdp/current/kafka-broker/bin/
+/usr/hdp/current/kafka-broker/

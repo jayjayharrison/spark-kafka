@@ -6,7 +6,6 @@ spark-shell --packages org.apache.spark:spark-streaming-kafka-0-10_2.11:2.4.0
 
 run a :paste command 
 ```
-spark-shell --packages org.apache.spark:spark-streaming-kafka-0-10_2.11:2.4.0
 
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
@@ -17,7 +16,7 @@ import org.apache.spark.streaming.kafka010._
 
 val ssc = new StreamingContext(sc, Seconds(2))
 
-val topics = Array("test")
+val topics = Array("message")
 val brokers = "localhost:9092"
 val groupId = "grp_id"
 
@@ -26,6 +25,7 @@ val kafkaParams = Map[String, Object](
       ConsumerConfig.GROUP_ID_CONFIG -> groupId,
       ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG -> classOf[StringDeserializer],
       ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG -> classOf[StringDeserializer])
+
 
 val messages = KafkaUtils.createDirectStream[String, String](
       ssc,

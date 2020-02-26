@@ -11,6 +11,7 @@ cd kafka_2.12-2.4.0
 ### Start Zookeeper Server
 ```
 bin/zookeeper-server-start.sh config/zookeeper.properties
+# nohup job much end with a '&' to tell it to run in background
 # nohup bin/zookeeper-server-start.sh config/zookeeper.properties > ~/nohup.out 2> ~/nohup.err < /dev/null &
 # send standard out to home/nohup.out and send standard error to home/nohup.err
 ```

@@ -13,6 +13,7 @@ tail -n1 -f ~/data/message.txt | while read LINE; do echo "$LINE"; done | bin/ka
 ```
 
 ### bash script to append file 
+#### nohup bash output_message.sh 10000 0.5 &>nohup.out &
 ```
 # bash output_message.sh 100 0.1
 # output_message.sh 

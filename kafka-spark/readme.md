@@ -46,6 +46,7 @@ ssc.awaitTermination()
 ### create kafka topic test and start producer 
 ```
 kafka_2.12-2.4.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
-kafka_2.12-2.4.0/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+message=("hell" "where are you from" "im from iceland" "oh, nice, how cold it there" "no cold at all" "what is this" "trump trump")
+for x in {1..100}; do echo "Message $x : ${message[$(( ${RANDOM} % ${#message[@]} ))]}"; sleep 0.5 ; done | bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
 
 ```

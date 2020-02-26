@@ -1,4 +1,5 @@
-### continously listen to file and push to kafka
+# continously listen to file and push to kafka
+## tail -n1 -f ~/data/message.txt | while read LINE; do echo "$LINE"; done | bin/kafka-console-producer.sh --broker-list localhost:9092 --topic message
 
 ```
 # start zookeeper

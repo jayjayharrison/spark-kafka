@@ -56,7 +56,7 @@ df.write
 ```
 ### 4. Read ORC -> Write XML
 
-spark-shell --packages com.databricks:spark-xml_2.11:0.4.1,com.databricks:spark-avro_2.11:4.0.0 
+#### Dependencies: spark-shell --packages com.databricks:spark-xml_2.11:0.4.1,com.databricks:spark-avro_2.11:4.0.0 
 
 ```
 //Read ORC into Data Frame

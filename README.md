@@ -71,10 +71,10 @@ people.filter("age > 30")
 ```
 ## Load CSV with options
 ```
-val df = spark.read.csv("data/people.csv")
+val df = spark.read.option("delimiter", "\t").csv("data/people.csv")
 or 
 val df = spark.read
-  .format("csv")
+  .format("csv") 
   .option("header", "true")
   .option("inferSchema", "true") // inferSchema will allow spark to automatecally map the DDL. It is recommanded to define your own schema when loading untyped file such as csv/json. See spark-df-schema
   .option("nullValue", "NA")
@@ -86,7 +86,7 @@ val df = spark.read
 ## Writer with partition
 ```
 df.write
-  .format("parquet")
+  .format("parquet") 
   .partitionBy("column_name")
   .bucketBy("column_name")
   .sortBy("column_name")

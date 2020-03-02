@@ -14,7 +14,9 @@ val kafka_stream = spark.readStream
   .option("subscribe", "test")
   .option("startingOffsets", "latest")
   .load()
-  
+
+//read stream return key value pair, key is topic name and value is the message
+
 val message = kafka_stream.selectExpr("CAST(value AS STRING)").as[String]
 val words = message.flatMap(_.split(" "))
 val wordCounts = words.groupBy("value").count()
@@ -26,9 +28,9 @@ val query = wordCounts.writeStream
 
 query.awaitTermination()
 
+```
 
-
-
+```
 val df = spark
   .read
   .format("kafka")

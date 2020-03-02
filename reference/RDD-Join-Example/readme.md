@@ -1,9 +1,9 @@
 
 | id        	| email         | language  |location
 | ------------- |:-------------:| :--------:|---
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| 1      | jahjah@gmail.com | ENGLISH | US
+| 2      | mohan@outlook.com      |   ENGLISH | INDIA
+| 3 | sudan@aol.com      |    ENGLISH | UK
 
 
 ```

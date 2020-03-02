@@ -1,35 +1,5 @@
 # package application using sbt 
 
-## below is the file structure you need to create
-```
-project
-  -build.sbt
-  -src
-    -main
-      -scala
-        -test.scala
-```
-
-### in build.sbt manage your dependency 
-```
-name := "spark Test App"
-version := "0.1"
-organization := "com.jay.app"
-scalaVersion := "2.11.8"
-val sparkVersion = "2.2.0"
-
-libraryDependencies ++= Seq(
-  "org.apache.spark" %% "spark-core" % sparkVersion,
-  "org.apache.spark" %% "spark-sql" % sparkVersion,
-   "org.apache.spark" %% "spark-mllib" % sparkVersion,
-  "org.apache.spark" %% "spark-streaming" % sparkVersion,
-  "org.apache.spark" %% "spark-hive" % sparkVersion,
-  "io.confluent" % "kafka-avro-serializer" % "3.1.1"
-)
-
-resolvers += "confluent" at "http://packages.confluent.io/maven/"
-```
-
 ### test.scala
 ```
 package com.jay.app.examples
@@ -68,6 +38,41 @@ object SparkTestApp {
  }
 
 ```
+
+
+
+
+## below is the file structure you need to create
+```
+project
+  -build.sbt
+  -src
+    -main
+      -scala
+        -test.scala
+```
+
+### in build.sbt manage your dependency 
+```
+name := "spark Test App"
+version := "0.1"
+organization := "com.jay.app"
+scalaVersion := "2.11.8"
+val sparkVersion = "2.2.0"
+
+libraryDependencies ++= Seq(
+  "org.apache.spark" %% "spark-core" % sparkVersion,
+  "org.apache.spark" %% "spark-sql" % sparkVersion,
+   "org.apache.spark" %% "spark-mllib" % sparkVersion,
+  "org.apache.spark" %% "spark-streaming" % sparkVersion,
+  "org.apache.spark" %% "spark-hive" % sparkVersion,
+  "io.confluent" % "kafka-avro-serializer" % "3.1.1"
+)
+
+resolvers += "confluent" at "http://packages.confluent.io/maven/"
+```
+
+
 
 Run 'sbt package' on project root directory, then jar file will be created at target folder
 

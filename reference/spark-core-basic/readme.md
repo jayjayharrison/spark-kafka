@@ -126,6 +126,7 @@ val df2 = df.withColumn("eldest_person_in_a_group", rank() over Window.partition
 
 ## Load CSV with options
 ```
+val df= spark.read.schema("a STRING, b Int, c STRING, D TimeStamp").format("csv").load("data/people_raw.txt")
 val df = spark.read.csv("data/people.csv")
 or 
 val df = spark.read

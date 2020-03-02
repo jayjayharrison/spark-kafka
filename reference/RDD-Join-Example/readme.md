@@ -7,13 +7,12 @@
 
 
 | transaction-id| product-id| user-id| purchase-amount| item-description
-| ------------- |:-------------:| :--------:|---:|---
+| -------- |:-------------:| :--------:|---:|---
 | 1      | U1 | 1 | $120 | WATCH | Rolex
 | 2      | A2 | 2 | $300 | Bike  | NA
-| 3 | sudan@aol.com      |    ENGLISH | UK|
-
-
-
+| 3      | H2 | 1 | $20 | Hat  | NA
+| 4      | H8 | 1 | $5 | Cup  | NA
+| 5      | H4 | 1 | $90 | Heel  | NA
 
 
 

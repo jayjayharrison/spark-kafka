@@ -1,6 +1,6 @@
 # spark-core-quick-start
 
-create spark session 
+## create spark session 
 ```
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.builder

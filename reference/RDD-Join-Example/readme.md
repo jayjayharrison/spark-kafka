@@ -6,6 +6,17 @@
 | 3 | sudan@aol.com      |    ENGLISH | UK
 
 
+| transaction-id| product-id| user-id| purchase-amount| item-description
+| ------------- |:-------------:| :--------:|---:|
+| 1      | jahjah@gmail.com | ENGLISH | US|
+| 2      | mohan@outlook.com      |   ENGLISH | INDIA|
+| 3 | sudan@aol.com      |    ENGLISH | UK|
+
+
+
+
+
+
 ```
 package main.scala.com.matthewrathbone.spark
 

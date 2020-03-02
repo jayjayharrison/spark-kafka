@@ -1,3 +1,4 @@
+https://blog.matthewrathbone.com/2013/01/05/a-quick-guide-to-hadoop-map-reduce-frameworks.html
 
 | id        	| email         | language  |location
 | ------------- |:-------------:| :--------:|---

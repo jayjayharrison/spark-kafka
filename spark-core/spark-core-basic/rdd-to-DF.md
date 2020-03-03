@@ -1,11 +1,33 @@
 from https://indatalabs.com/blog/convert-spark-rdd-to-dataframe-dataset
 
+### // for implicit conversions from Spark RDD to Dataframe
 ```
 import spark.implicits._
-// for implicit conversions from Spark RDD to Dataframe
+
 val dataFrame = rdd.toDF()
 ```
+### cover rdd element to row, and define schema
+```
+val schema =  StructType(
+    Seq(
+      StructField(name = "manager_name", dataType = StringType, nullable = false),
+      StructField(name = "client_name", dataType = StringType, nullable = false),
+      StructField(name = "client_gender", dataType = StringType, nullable = false),
+      StructField(name = "client_age", dataType = IntegerType, nullable = false),
+      StructField(name = "response_time", dataType = DoubleType, nullable = false),
+      StructField(name = "satisfaction_level", dataType = DoubleType, nullable = fals)
+    )
+  )
 
+val data =
+  rdd
+    .mapPartitionsWithIndex((index, element) => if (index == 0) it.drop(1) else it) // skip header
+    .map(_.split(",").to[List])
+    .map(line => Row(line(0), line(1), line(2), line(3).toInt, line(4).toDouble, line(5).toDouble))
+
+val dataFrame = spark.createDataFrame(data, schema)
+
+```
 
 From existing RDD by programmatically specifying the schema
 ```

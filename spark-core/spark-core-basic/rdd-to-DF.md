@@ -8,6 +8,9 @@ val dataFrame = rdd.toDF()
 ```
 ### covert rdd element to row, and define schema
 ```
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.types.StructField
+import org.apache.spark.sql.types.StringType
 val schema =  StructType(
     Seq(
       StructField(name = "manager_name", dataType = StringType, nullable = false),

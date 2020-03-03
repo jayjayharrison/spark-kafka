@@ -11,7 +11,7 @@ object SparkTestApp {
  def main(args: Array[String]) = {
   val spark = SparkSession.builder()
   .appName("SparkTestApp")
-  .setMater(args(0))
+  //.setMater(args(0)) 
   .enableHiveSupport()
   .getOrCreate()
 

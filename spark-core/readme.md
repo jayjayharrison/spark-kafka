@@ -91,3 +91,16 @@ spark-submit --class "com.jay.app.examples.SparkTestApp" \
 target/scala-2.11/spark-test-app_2.11-0.1.jar yarn-client 
 // yarn-cluster
 ```
+
+
+yarn-client
+```
+--master yarn --deploy-mode client
+Yarn client mode: your driver program is running on the yarn client where you type the command to submit the spark application (may not be a machine in the yarn cluster). In this mode, although the drive program is running on the client machine, the tasks are executed on the executors in the node managers of the YARN cluster
+```
+yarn-cluster
+```
+--master yarn --deploy-mode cluster
+This is the most advisable pattern for executing/submitting your spark jobs in production
+Yarn cluster mode: Your driver program is running on the cluster master machine where you type the command to submit the spark application
+```

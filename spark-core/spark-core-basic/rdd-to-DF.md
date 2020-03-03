@@ -6,7 +6,7 @@ import spark.implicits._
 
 val dataFrame = rdd.toDF()
 ```
-### cover rdd element to row, and define schema
+### covert rdd element to row, and define schema
 ```
 val schema =  StructType(
     Seq(

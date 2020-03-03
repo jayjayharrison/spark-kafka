@@ -88,5 +88,6 @@ spark-submit --class "com.jay.app.examples.SparkTestApp" \
 --master yarn \
 --exector-memory 512m \
 --total-executor-cores 1\
-target/scala-2.11/spark-test-app_2.11-0.1.jar yarn-client yarn-client
+target/scala-2.11/spark-test-app_2.11-0.1.jar yarn-client 
+// yarn-cluster
 ```

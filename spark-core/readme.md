@@ -11,6 +11,7 @@ object SparkTestApp {
  def main(args: Array[String]) = {
   val spark = SparkSession.builder()
   .appName("SparkTestApp")
+  .setMater(args(0))
   .enableHiveSupport()
   .getOrCreate()
 
@@ -77,7 +78,8 @@ resolvers += "confluent" at "http://packages.confluent.io/maven/"
 Run 'sbt package' on project root directory, then jar file will be created at target folder
 
 ```
-spark-submit --master local --class com.jay.app.examples.SparkTestApp target/scala-2.11/spark-test-app_2.11-0.1.jar InputIfAny
+// args(0) = yarn-client
+spark-submit --master local --class com.jay.app.examples.SparkTestApp target/scala-2.11/spark-test-app_2.11-0.1.jar yarn-client 
 ```
 
 cluster mode
@@ -86,5 +88,5 @@ spark-submit --class "com.jay.app.examples.SparkTestApp" \
 --master yarn \
 --exector-memory 512m \
 --total-executor-cores 1\
-target/scala-2.11/spark-test-app_2.11-0.1.jar yarn-client InputIfAny(args(0))
+target/scala-2.11/spark-test-app_2.11-0.1.jar yarn-client yarn-client
 ```

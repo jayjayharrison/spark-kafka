@@ -1,6 +1,5 @@
 # spark-core-quick-start
 
-
 ## dataFrame exmaple with window function
 ```
 import org.apache.spark.sql.SparkSession
@@ -10,8 +9,9 @@ import org.apache.spark.sql.functions._
 // Create Spark Session
 val spark = SparkSession.builder.master("local").appName("Window Function").getOrCreate()
 import sparkSession.implicits._
-
-// Create Sample Dataframe
+```
+### Create Sample Dataframe
+```
 val empDF = spark.createDataFrame(Seq(
       (7369, "SMITH", "CLERK", 7902, "17-Dec-80", 800, 20, 10),
       (7499, "ALLEN", "SALESMAN", 7698, "20-Feb-81", 1600, 300, 30),
@@ -25,8 +25,10 @@ val empDF = spark.createDataFrame(Seq(
       (7844, "TURNER", "SALESMAN", 7698, "8-Sep-81", 1500, 0, 30),
       (7876, "ADAMS", "CLERK", 7788, "23-May-87", 1100, 0, 20)
     )).toDF("empno", "ename", "job", "mgr", "hiredate", "sal", "comm", "deptno")
-// return top salary maker from each department 	
-
+	
+```
+### return top salary maker from each department 
+```
 empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc) ) as "rank").filter($"rank" < 2).show
 +-----+-----+---------+----+---------+----+----+------+----+
 |empno|ename|      job| mgr| hiredate| sal|comm|deptno|rank|

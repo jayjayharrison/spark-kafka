@@ -1,7 +1,7 @@
 # spark-core-quick-start
 
 
-## dataFrame exmaple with windo function
+## dataFrame exmaple with window function
 ```
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.expressions.Window
@@ -25,8 +25,9 @@ val empDF = spark.createDataFrame(Seq(
       (7844, "TURNER", "SALESMAN", 7698, "8-Sep-81", 1500, 0, 30),
       (7876, "ADAMS", "CLERK", 7788, "23-May-87", 1100, 0, 20)
     )).toDF("empno", "ename", "job", "mgr", "hiredate", "sal", "comm", "deptno")
-	
-empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc)) as "rank").filter($"rank" < 2).show
+// return top salary maker from each department 	
+
+empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc) ) as "rank").filter($"rank" < 2).show
 +-----+-----+---------+----+---------+----+----+------+----+
 |empno|ename|      job| mgr| hiredate| sal|comm|deptno|rank|
 +-----+-----+---------+----+---------+----+----+------+----+
@@ -49,8 +50,16 @@ empDF.groupBy($"deptno",$"job").agg(min($"sal"),max($"sal")).show()
 |    10|  MANAGER|    2450|    2450|
 +------+---------+--------+--------+
 
+empDF.groupBy($"job").agg(min($"sal"),max($"sal"),count($"job").alias("emp-cnt")).where(column("emp-cnt") >1 ).show()
++--------+--------+--------+-------+
+|     job|min(sal)|max(sal)|emp-cnt|
++--------+--------+--------+-------+
+|SALESMAN|    1250|    1600|      4|
+|   CLERK|     800|    1100|      2|
+| MANAGER|    2450|    2975|      3|
++--------+--------+--------+-------+
 
-empDF.groupBy($"deptno",$"job").count().show()
+empDF.groupBy($"deptno",$"job").count().show()  // or empDF.select($"deptno",$"job").groupBy($"deptno",$"job").count()
 +------+---------+-----+
 |deptno|      job|count|
 +------+---------+-----+
@@ -62,8 +71,26 @@ empDF.groupBy($"deptno",$"job").count().show()
 |    20|    CLERK|    1|
 |    10|    CLERK|    1|
 |    10|  MANAGER|    1|
-+------+---------+-----+
-  
+
+import org.apache.spark.sql.functions.countDistinct
+import org.apache.spark.sql.functions.col
+
+empDF.select(empDF.columns.map(c => countDistinct(col(c)).alias(c)): _*).show()
++-----+-----+---+---+--------+---+----+------+
+|empno|ename|job|mgr|hiredate|sal|comm|deptno|
++-----+-----+---+---+--------+---+----+------+
+|   11|   11|  5|  6|      11| 10|   5|     3|
++-----+-----+---+---+--------+---+----+------+
+
+empDF.select($"deptno").groupBy($"deptno").agg(countDistinct($"deptno").alias("no_of_emp")).show()
+|deptno|no_of_emp|
++------+---+
+|    30|  1|
+|    10|  1|
+|    20|  1|
++------+---+
+
+
 ```
 // window function - find highest 3 salary in each dept 
 ```

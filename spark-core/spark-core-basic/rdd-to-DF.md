@@ -22,9 +22,7 @@ val schema =  StructType(
     )
   )
 
-val data =
-  rdd
-    .mapPartitionsWithIndex((index, element) => if (index == 0) it.drop(1) else it) // skip header
+val data =rdd.mapPartitionsWithIndex((index, element) => if (index == 0) element.drop(1) else element) // skip header
     .map(_.split(",").to[List])
     .map(line => Row(line(0), line(1), line(2), line(3).toInt, line(4).toDouble, line(5).toDouble))
 

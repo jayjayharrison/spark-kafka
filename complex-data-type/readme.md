@@ -48,7 +48,7 @@ https://docs.databricks.com/spark/latest/dataframes-datasets/complex-nested-data
 
 ### split a column to array, and explode to row
 ```
-scala> val df = jsDF.withColumn("arr",split($"ip","\\."))
+scala> val df = jsDF.withColumn("arr",split($"ip","\\.")) //df.select(split($"name",",").as("nameAsArray") )
 +---+-------------+-------------+----+------------------+
 | id|  device_type|           ip|cca3|               arr|
 +---+-------------+-------------+----+------------------+

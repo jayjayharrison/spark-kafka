@@ -1,4 +1,4 @@
-
+###  get_json_object
 
 ```
 val data = Seq (
@@ -45,3 +45,29 @@ val newdf = data.select(from_json($"json_string", jsonSchema) as "devices") // n
 
 ```
 https://docs.databricks.com/spark/latest/dataframes-datasets/complex-nested-data.html
+
+### split a column to array, and explode to row
+```
+scala> val df = jsDF.withColumn("arr",split($"ip","\\."))
++---+-------------+-------------+----+------------------+
+| id|  device_type|           ip|cca3|               arr|
++---+-------------+-------------+----+------------------+
+|  0|  sensor-ipad| 68.161.225.1| USA| [68, 161, 225, 1]|
+|  1|sensor-igauge|213.161.254.1| NOR|[213, 161, 254, 1]|
++---+-------------+-------------+----+------------------+
+
+scala> df.withColumn("col2",explode($"arr")).show()
++---+-------------+-------------+----+------------------+----+
+| id|  device_type|           ip|cca3|               arr|col2|
++---+-------------+-------------+----+------------------+----+
+|  0|  sensor-ipad| 68.161.225.1| USA| [68, 161, 225, 1]|  68|
+|  0|  sensor-ipad| 68.161.225.1| USA| [68, 161, 225, 1]| 161|
+|  0|  sensor-ipad| 68.161.225.1| USA| [68, 161, 225, 1]| 225|
+|  0|  sensor-ipad| 68.161.225.1| USA| [68, 161, 225, 1]|   1|
+|  1|sensor-igauge|213.161.254.1| NOR|[213, 161, 254, 1]| 213|
+|  1|sensor-igauge|213.161.254.1| NOR|[213, 161, 254, 1]| 161|
+|  1|sensor-igauge|213.161.254.1| NOR|[213, 161, 254, 1]| 254|
+|  1|sensor-igauge|213.161.254.1| NOR|[213, 161, 254, 1]|   1|
++---+-------------+-------------+----+------------------+----+
+
+```

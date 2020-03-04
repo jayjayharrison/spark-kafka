@@ -5,7 +5,7 @@
 |"[{'cast_id': 14, 'character': 'Woody (voice)'},{'cast_id': 14, 'character': 'Woody (voice)'}]"|
 
 1. trim '[' and ']' bracket 
-2. replace , to ~ so that split can be performed correctlly
+2. replace , at each json object to ~ so that split can be performed correctlly
 3. split on ~
 4. replace '  to " , for hive to recognized it as json. if single quote, the get_json_object will return null
 

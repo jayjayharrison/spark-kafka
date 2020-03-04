@@ -14,7 +14,7 @@ select get_json_object(exploded_tbl.json_column,"$.cast_id"),get_json_object(exp
 (
 select nm, regexp_replace(tbl.json1,"\'","\"") as json_column from 
 (select split(arr,'~') as arr2, "jay" as nm from 
-(select regexp_replace(regexp_replace(c1,'\\[|\\]',''),'\\},\\{','\\}\\~\\{') as arr from test2)t1
+(select regexp_replace(regexp_replace(c1,'\\[|\\]',''),'\\},\\{','\\}\\~\\{') as arr from test2)t1 // or regexp_extract(c1,'^\\["(.*)\\"]$',1)
 )t2
 lateral view outer explode(arr2) tbl as json1
 )exploded_tbl

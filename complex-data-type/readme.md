@@ -24,6 +24,7 @@ scala> jsDF.show()
 ```
 import org.apache.spark.sql.types._                         // include the Spark Types to define our schema
 import org.apache.spark.sql.functions._                     // include the Spark helper functions
+//define schema
 val jsonSchema = new StructType()
         .add("battery_level", LongType)
         .add("c02_level", LongType)
@@ -35,12 +36,15 @@ val jsonSchema = new StructType()
         .add("ip", StringType)
         .add("temp", LongType)
         .add("timestamp", TimestampType)
+// or define schema 
+// val jsonSchema = spark.read.json(data.select("json_string").as[String]).schema //coverted to dataset and fetch schema
+        
         
 case class DeviceData (id: Int, json_string: String)
 
 val dataDS = data.as[DeviceData]
-val newdf = data.select(from_json($"json_string", jsonSchema) as "devices") // newdf.printSchema,  column is now struct type
-.select($"devices.*")        // select * from device column
+val newdf = data.select($"id",from_json($"json_string", jsonSchema) as "devices") // newdf.printSchema,  column is now struct type
+.select($"id",$"devices.*")        // select * from device column
 .filter($"devices.temp" > 10 and $"devices.signal" > 15)
 
 ```

@@ -35,4 +35,6 @@ val query = sDF2.writeStream
 
 query.awaitTermination()
 ```
+consolde mode
+
 ![Image](https://github.com/jayjayjohn/spark-kafka/blob/master/spark-structured-streaming/with-file-source/Capture.PNG)

@@ -1,5 +1,6 @@
 https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html#deploying
 https://databricks.com/blog/2017/04/26/processing-data-in-apache-kafka-with-structured-streaming-in-apache-spark-2-2.html
+### Structured Streaming with Kafka source
 ```
 bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
 ```

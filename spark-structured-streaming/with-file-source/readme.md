@@ -18,7 +18,7 @@ val sDF = spark
   .csv("/home/jay/data/streaming/")    // Equivalent to format("csv").load("/path/to/directory")
 
 val sDF2 = sDF.select(initcap(trim($"sender")) as "sender",
-            initcap(trim($"receiver")) as "sender", 
+            initcap(trim($"receiver")) as "receiver", 
             format_number($"amount",2) as "amount", 
             date_format(current_timestamp(),"HH:mm:ss MM-dd") as "timestamp",
             $"_corrupt_record")

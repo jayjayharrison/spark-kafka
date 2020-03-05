@@ -1,3 +1,4 @@
+```
 val rdd = sc.textFile("/home/jay/data/kaggle/credits.csv")
 
 
@@ -45,6 +46,9 @@ val df4 = df_exp.select($"cast_2.cast_id",$"cast_2.name",$"cast_2.character", $"
   
   
 val df0_dq = df0.select(regexp_replace($"value","\"\"","\"").as("dq_value"))  
+
+
+```
 
 val schema0 = new StructType()
 .add("cast", StringType)

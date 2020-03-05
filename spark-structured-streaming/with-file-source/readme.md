@@ -29,8 +29,9 @@ val sDF2 = sDF.select(initcap(trim($"sender")) as "sender",
 
 val query = sDF2.writeStream
   .outputMode("append") //when there is not aggregation, you can not use complete mode
-  .format("console")
-  .start()
+  .format("csv") //.format("console")
+  .option("checkpointLocation", "/home/jay/data/streaming_checkpoint/") // checkpoint should be hdfs location to achieve fault tolerance
+  .start("/home/jay/data/streaming_out/")
 
 query.awaitTermination()
 ```

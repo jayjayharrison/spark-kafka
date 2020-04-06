@@ -74,6 +74,7 @@ df.write
   .save("/home/prashant/spark-data/mental-health-in-tech-survey/xml-data/")
 
 ```
+### 5. Read XML -> Write AVRO
 
 ```
 //Read XML into Data Frame
@@ -89,5 +90,18 @@ df.write
   .mode("overwrite")
   .save("/home/prashant/spark-data/mental-health-in-tech-survey/avro-data/")
 ```
+### 6. Read AVRO -> Write CSV
+```
+val df = spark.read
+.format("com.databricks.spark.avro")
+.option("mode","failfast").load("/")
 
+df.write
+.format("csv")
+.option("header","true")
+.option("nullValue","NA")
+.made("overwrite")
+.save('')
+
+```
 

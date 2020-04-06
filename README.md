@@ -82,8 +82,16 @@ val df = spark.read
   .option("mode", "failfast")
   .option("path", "survey.csv")
   .load()
+
+df.write
+.format("csv")
+.option("header","true")
+.option("nullValue","NA")
+.made("overwrite")
+.save('')
+
 ```
-## Writer with partition
+## Writer parquet with partition
 ```
 df.write
   .format("parquet") 

@@ -18,6 +18,7 @@ organization := "com.jay.app"
 scalaVersion := "2.11.8"
 val sparkVersion = "2.2.0"
 
+//%% means spark-core_scalaVersion, with single % you have to append _2.xx after spark-core
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % sparkVersion,
   "org.apache.spark" %% "spark-sql" % sparkVersion,

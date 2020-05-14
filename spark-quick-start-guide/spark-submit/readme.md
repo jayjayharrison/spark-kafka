@@ -6,7 +6,7 @@
   --conf <key>=<value> \          \\ dynamically loading spark property. in key=value format. For values that contain spaces wrap “key=value” in quotes
   ... # other options             \\ ex:--conf spark.eventLog.enabled=false --config spark.app.name=jaysapp ,  if not specify, spark will refer to conf/spark-defaults.conf
   <application-jar> \
-  [application-arguments]
+  [application-arguments]           \\user input
 ```
 
 

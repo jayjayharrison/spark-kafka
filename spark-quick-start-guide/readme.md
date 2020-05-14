@@ -1,2 +1,5 @@
-### turn off processing log in screen
-spark.sparkContext.setLogLevel("ERROR") //"WARM"    after SparkSession.builder
+## Tips
+#### Turn off processing log in screen
+```
+spark.sparkContext.setLogLevel("ERROR") //to only print out error;or "WARM"; after SparkSession.builder
+```

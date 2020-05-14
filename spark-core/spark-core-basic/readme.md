@@ -94,25 +94,31 @@ empDF.select($"deptno").groupBy($"deptno").agg(countDistinct($"deptno").alias("n
 
 
 ```
-// window function - find highest 3 salary in each dept 
+## // window function - find highest 3 salary in each dept 
 ```
 val partitionWindow = Window.partitionBy($"dept").orderBy($"salary".desc)
 val rankTest = rank().over(partitionWindow)
 employee.select($"*", rankTest as "rank").filter($"rank" < 4)show
 
 //OR
-
 empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc)) as "rank").filter($"rank" < 2)show
-
 //withColumn
 empDF.withColumn("rank", rank() over Window.partitionBy("deptno").orderBy($"sal".desc)).filter($"rank" === 1).show()
 ```
-//find min salary, with rowFrame,   unboundedfllowwing represent last row on a desc ordering  
- default window frame is range between unbounded preceding and current row, then in desc ordering, current row is always the last
+## //find min salary, with rowFrame,   unboundedfllowwing represent last row on a desc ordering  
+ default window frame is range between unbounded preceding and current row meaning top first row to current row, then in desc ordering, current row is always the last
 ```
 empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal".desc).rowsBetween(Window.currentRow, Window.unboundedFollowing)) as "rank").show
 ```
-//join
+## count how many people have salavery less or equal to current row salary. 
+##### OVER order by salary, have default frame from top row( lowest salary) to current salary.
+##### Over order by salary DESC, have same window frame, but now top row is highest salary, so it will return how many people have salary greater or equal to you
+
+```
+sql("SELECT salary, count(*) OVER (ORDER BY salary) AS cnt FROM t_employee order by salary").show
+```
+
+## //join
 ```
 people.filter("age > 30")
      .join(department, people("deptId") === department("id"))

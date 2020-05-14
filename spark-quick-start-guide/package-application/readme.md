@@ -10,7 +10,7 @@ object SparkTestApp {
   val spark = SparkSession.builder()
   .appName("SparkTestApp")
   //.setMater(args(0)) 
-  .enableHiveSupport()  //hiveContext is deprecated, just this instead
+  .enableHiveSupport()  //hiveContext is deprecated after 2.0, use this instead
   .getOrCreate()
 
 

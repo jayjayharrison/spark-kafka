@@ -25,7 +25,7 @@ spark.conf.getAll
 import org.apache.log4j._
 Logger.getLogger("org").setLevel(Level.ERROR)
 // or
-spark.sparkContext.setLogLevel("ERROR") //to only print out error;or "WARM"; after SparkSession.builder
+spark.sparkContext.setLogLevel("ERROR") //ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 ```
 
 #### set Hive Dynamic Partition and Recreate table with Partition

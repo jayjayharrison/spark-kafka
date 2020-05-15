@@ -63,6 +63,15 @@ empDF.withColumn("rank", rank() over Window.partitionBy("deptno").orderBy($"sal"
 ```
 empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal".desc).rowsBetween(Window.currentRow, Window.unboundedFollowing)) as "rank").show
 ```
+### 7.1 window frame, cumulutive count/sum
+```
+count how many people have salavery less or equal to current row salary. 
+count() OVER order by salary, have default frame from top row( lowest salary) to current salary.
+Over order by salary DESC, have same window frame, but now top row is highest salary, so it will return how many people have salary greater or equal to you
+
+sql("SELECT salary, count(*) OVER (ORDER BY salary) AS cnt FROM t_employee order by salary").show //unbounding preceding to current
+sql("SELECT salary, count(*) OVER (ORDER BY salary RANGE between unbounding following and current row) AS cnt FROM t_employee order by salary").show   //return count of salary that are creater or equal to you
+```
 ### 8.  Join
 ```
 people.filter("age > 30")

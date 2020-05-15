@@ -22,13 +22,8 @@ spark.conf.getAll
 
 #### Turn off processing log info in screen; go to log4j file, remove extension .template to make it a real config file, edit log4j.rootcategory=ERROR
 ```
-import org.apache.spark.sql.SparkSession
-val spark = SparkSession.builder
-.appName("SparkSessionExample") 
-.master("local[1]")  //yarn-clinet  yarn-cluster  better off specify this in spark sumbit than in the scripts
-.config("spark.sql.warehouse.dir", "target/spark-warehouse")
-.enableHiveSupport()
-.getOrCreate
+Logger.getLogger("org").setLevel(Level.ERROR)
+// or
 spark.sparkContext.setLogLevel("ERROR") //to only print out error;or "WARM"; after SparkSession.builder
 ```
 

@@ -1,6 +1,6 @@
 # spark-transformation-quick-cheat-sheet
 
-### create spark session 
+### 1. Create spark session 
 ```
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.builder
@@ -11,7 +11,7 @@ val spark = SparkSession.builder
 .getOrCreate
 ```
 
-### DataFrame Load Json and Transformation
+### 2. DataFrame Load Json and Transformation
 ```
 data/people.json      {"name":"jay","age",39},{"name":"Linsey","age",22}
 val df = spark.read.json("data/people.json")
@@ -28,17 +28,17 @@ df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initia
 |Linsey|       23|         false|      L|   younge|
 +------+---------+--------------+-------+---------+
 ```
-### use hiveContext
+### 3. Use hiveContext
 ```
 df.createOrReplaceTempView("people")
 spark.catalog.listTables.show
 spark.sql("SELECT * FROM people where age > 21").show()
 ```
-### aggregation
+### 4. Uggregation
 ```
 val df_cnt = df.groupby("age").count()
 ```
-### window function - find eldest person in a window partition/group 
+### 5. Window function - find eldest person in a window partition/group 
 ```
 val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.partitionBy("some_group")).filter($"age" === $"eldest_person_in_a_group")
 
@@ -46,7 +46,7 @@ val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.parti
 val df2 = df.withColumn("eldest_person_in_a_group", rank() over Window.partitionBy("some_group").orderBy("age") as rnk)
     .filter($"rnk"=== 1)
 ```
-### window function - find highest 3 salary in each dept 
+### 6. Window function - find highest 3 salary in each dept 
 ```
 val partitionWindow = Window.partitionBy($"dept").orderBy($"salary".desc)
 val rankTest = rank().over(partitionWindow)
@@ -58,19 +58,19 @@ empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc
 //using withColumn
 empDF.withColumn("rank", rank() over Window.partitionBy("deptno").orderBy($"sal".desc)).filter($"rank" === 1).show()
 ```
-### find min salary; with window Frame, unboundedfllowwing represent last row on a desc ordering  
-#### default window frame is 'range between unbounded preceding and current row', then in desc ordering, current row is always the last so need to explictly specify window frame
+### 7. Window Frame, Find min of salary; unboundedfllowwing represent bottom most row when doing desc ordering  
+#### default window frame is 'range between unbounded preceding and current row', then in desc ordering, current row is always the last so need to explictly specify window frame. If use min(salary)order by asc, then default frame will also work
 ```
 empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal".desc).rowsBetween(Window.currentRow, Window.unboundedFollowing)) as "rank").show
 ```
-### Data Frame Join
+### 8.  Join
 ```
 people.filter("age > 30")
      .join(department, people("deptId") === department("id"))
      .groupBy(department("name"), "gender")
      .agg(avg(people("salary")), max(people("age")))
 ```
-### Load/Write CSV with options
+### 9. Load/Write CSV with options
 ```
 val df = spark.read.option("delimiter", "\t").csv("data/people.csv")
 // or 
@@ -92,7 +92,7 @@ df.write
 .save('')
 
 ```
-### Writer parquet with partition
+### 10. Writer parquet with partition
 ```
 df.write
   .format("parquet") 
@@ -103,7 +103,7 @@ df.write
   .save("path")
 ```
 
-### RDD quick example, list count of file in all root directory 
+### 11. RDD quick example, list count of file in all root directory 
 ```
 sudo find / > flist.txt # list all directory to flist.txt 
 //hadoop fs -copyFromLocal flist.txt /user/jay
@@ -119,7 +119,7 @@ val kvRDD= listRDD.map(a => (a(0),1)) # convert the list into a tuple/key value 
 val fcountRDD = kvRDD.reduceByKey( (x,y)=> x+y ) 
 fcountRDD.collect() # return result RDD to driver
 ```
-### Spakr Package 
+### 12. Spark Package 
 ```
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.expressions.Window

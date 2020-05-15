@@ -20,7 +20,7 @@ val empDs = employee.as[Employee]
 spark.conf.getAll
 ```
 
-#### Turn off processing log in screen
+#### Turn off processing log info in screen; go to log4j file, remove extension .template to make it a real config file, edit log4j.rootcategory=ERROR
 ```
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.builder

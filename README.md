@@ -203,4 +203,36 @@ val kvRDD= listRDD.map(a => (a(0),1))                   # convert the list into 
 val fcountRDD = kwRDD.reduceByKey( (x,y)=> x+y )        # 
 
 fcountRDD.collect()                                     # return result RDD to driver 
+```
+scala> :help
+...
+:shortcuts     print JLine shortcuts
+...
+
+scala> :short
+Keybinding mapping for JLine. The format is:
+[key code]: [logical operation]
+CTRL-B: move to the previous character
+CTRL-G: move to the previous word
+CTRL-F: move to the next character
+CTRL-A: move to the beginning of the line
+CTRL-D: close out the input stream
+CTRL-E: move the cursor to the end of the line
+BACKSPACE, CTRL-H: delete the previous character
+8 is the ASCII code for backspace and therefor
+deleting the previous character
+TAB, CTRL-I: signal that console completion should be attempted
+CTRL-J, CTRL-M: newline
+CTRL-K: erase the current line
+ENTER: newline
+CTRL-L: clear screen
+CTRL-N: scroll to the next element in the history buffer
+CTRL-P: scroll to the previous element in the history buffer
+CTRL-R: redraw the current line
+CTRL-U: delete all the characters before the cursor position
+CTRL-V: paste the contents of the clipboard (useful for Windows terminal)
+CTRL-W: delete the word directly before the cursor
+DELETE, CTRL-?: delete the previous character
+127 is the ASCII code for delete
+```
 

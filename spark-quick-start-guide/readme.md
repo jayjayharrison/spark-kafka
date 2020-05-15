@@ -1,9 +1,10 @@
 ## Tips
 
 #### quick create dataFrame from collection
+```
 val emp = Seq((101, "Amy", Some(2)),(100, "Jay", Some(5))
 val employee = spark.createDataFrame(emp).toDF("employeeId","employeeName","managerId")
-
+```
 #### create DataSet from DataFrame
 ```
 case class Employee(employeeId:Integer, employeeName:String, managerId:String) //something:Double, timestamp:Integer

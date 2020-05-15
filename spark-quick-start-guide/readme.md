@@ -22,6 +22,7 @@ spark.conf.getAll
 
 #### Turn off processing log info in screen; go to log4j file, remove extension .template to make it a real config file, edit log4j.rootcategory=ERROR
 ```
+import org.apache.log4j._
 Logger.getLogger("org").setLevel(Level.ERROR)
 // or
 spark.sparkContext.setLogLevel("ERROR") //to only print out error;or "WARM"; after SparkSession.builder

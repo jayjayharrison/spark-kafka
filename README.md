@@ -1,6 +1,6 @@
 # spark-core-quick-start
 
-## create spark session 
+### create spark session 
 ```
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.builder
@@ -11,15 +11,15 @@ val spark = SparkSession.builder
 .getOrCreate
 ```
 
-## DataFrame Load Json and Transformation
+### DataFrame Load Json and Transformation
 ```
-
 data/people.json      {"name":"jay","age",39},{"name":"Linsey","age",22}
 val df = spark.read.json("data/people.json")
-df.filter("age > 30").select("name", "age").show()
-//for a list of Methods inherited from class org.apache.spark.sql.Column, https://spark.apache.org/docs/1.6.0/api/java/org/apache/spark/sql/ColumnName.html
+df.select("name", "age").filter("age > 30").show()
+//for a list of Methods inherited from class org.apache.spark.sql.Column, //https://spark.apache.org/docs/1.6.0/api/java/org/apache/spark/sql/ColumnName.html
 
-df.select($"name", $"age" + 1,$"name".isNull,$"name".substr(1,1).alias("Initial"),when($"age">30,"mid age").when($"age"<=30,"younge").otherwise("na").alias("age group")).show()
+// column function 
+df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initial"), when($"age">30,"mid age").when($"age"<=30,"younge").otherwise("na").alias("age group")).show()
 
 +------+---------+--------------+-------+---------+
 |  name|(age + 1)|(name IS NULL)|Initial|age group|
@@ -27,56 +27,57 @@ df.select($"name", $"age" + 1,$"name".isNull,$"name".substr(1,1).alias("Initial"
 |   jay|       40|         false|      j|  mid age|
 |Linsey|       23|         false|      L|   younge|
 +------+---------+--------------+-------+---------+
-
+```
+### use hiveContext
+```
 df.createOrReplaceTempView("people")
+spark.catalog.listTables.show
 spark.sql("SELECT * FROM people where age > 21").show()
 ```
-// aggregation
+### aggregation
 ```
 val df_cnt = df.groupby("age").count()
 ```
-// window function - find eldest person in a group 
+### window function - find eldest person in a window partition/group 
 ```
-val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.partitionBy("some_group"))
-    .filter($"age" === $"eldest_person_in_a_group")
+val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.partitionBy("some_group")).filter($"age" === $"eldest_person_in_a_group")
 
+// or use rank
 val df2 = df.withColumn("eldest_person_in_a_group", rank() over Window.partitionBy("some_group").orderBy("age") as rnk)
     .filter($"rnk"=== 1)
 ```
-
-// window function - find highest 3 salary in each dept 
+### window function - find highest 3 salary in each dept 
 ```
 val partitionWindow = Window.partitionBy($"dept").orderBy($"salary".desc)
 val rankTest = rank().over(partitionWindow)
 employee.select($"*", rankTest as "rank").filter($"rank" < 4)show
 
 //OR
-
 empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc)) as "rank").filter($"rank" < 2)show
 
-//withColumn
+//using withColumn
 empDF.withColumn("rank", rank() over Window.partitionBy("deptno").orderBy($"sal".desc)).filter($"rank" === 1).show()
 ```
-//find min salary, with rowFrame,   unboundedfllowwing represent last row on a desc ordering  
- default window frame is range between unbounded preceding and current row, then in desc ordering, current row is always the last
+### find min salary; with window Frame, unboundedfllowwing represent last row on a desc ordering  
+#### default window frame is 'range between unbounded preceding and current row', then in desc ordering, current row is always the last so need to explictly specify window frame
 ```
 empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal".desc).rowsBetween(Window.currentRow, Window.unboundedFollowing)) as "rank").show
 ```
-//join
+### Data Frame Join
 ```
 people.filter("age > 30")
      .join(department, people("deptId") === department("id"))
      .groupBy(department("name"), "gender")
      .agg(avg(people("salary")), max(people("age")))
 ```
-## Load CSV with options
+### Load/Write CSV with options
 ```
 val df = spark.read.option("delimiter", "\t").csv("data/people.csv")
-or 
+// or 
 val df = spark.read
   .format("csv") 
   .option("header", "true")
-  .option("inferSchema", "true") // inferSchema will allow spark to automatecally map the DDL. It is recommanded to define your own schema when loading untyped file such as csv/json. See spark-df-schema
+  .option("inferSchema", "true") // inferSchema will allow spark to automatecally map the DDL.
   .option("nullValue", "NA")
   .option("timestampFormat", "yyyy-MM-dd'T'HH:mm?:ss")
   .option("mode", "failfast")
@@ -91,7 +92,7 @@ df.write
 .save('')
 
 ```
-## Writer parquet with partition
+### Writer parquet with partition
 ```
 df.write
   .format("parquet") 
@@ -102,7 +103,7 @@ df.write
   .save("path")
 ```
 
-## RDD
+### RDD quick example, list count of file in all root directory 
 ```
 sudo find / > flist.txt # list all directory to flist.txt 
 //hadoop fs -copyFromLocal flist.txt /user/jay
@@ -118,7 +119,7 @@ val kvRDD= listRDD.map(a => (a(0),1)) # convert the list into a tuple/key value 
 val fcountRDD = kvRDD.reduceByKey( (x,y)=> x+y ) 
 fcountRDD.collect() # return result RDD to driver
 ```
-
+### Spakr Package 
 ```
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.expressions.Window

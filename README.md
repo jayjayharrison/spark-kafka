@@ -128,7 +128,7 @@ val kvRDD= listRDD.map(a => (a(0),1)) # convert the list into a tuple/key value 
 val fcountRDD = kvRDD.reduceByKey( (x,y)=> x+y ) 
 fcountRDD.collect() # return result RDD to driver
 ```
-### 12. Spark Package 
+### 12. Spark DF quick Sample 
 ```
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.expressions.Window

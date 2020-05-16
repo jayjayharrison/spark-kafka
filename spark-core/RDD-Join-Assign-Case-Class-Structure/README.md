@@ -1,6 +1,6 @@
 ### Create RDD of complex type
 #### rdd can be join on key of  rdd with tuple(k, v)
-#### if V contain multiple element, you must collect V as a collection,  ex, (K, (v1,v2,v3))
+#### if V contain multiple element, you must map V as a its own collection,  ex, (K, (v1,v2,v3))
 #### k is treated as primary key to join
 #### to filter value, ex, map( tuple =>  tuple._2._1 == sometime)  // tuple._2  is the value tuple
 

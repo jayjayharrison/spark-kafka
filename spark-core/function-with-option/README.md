@@ -15,6 +15,7 @@
 // flat Map will remove None
 val namesRdd = names.flatMap(parseNames)
 
+
 // lookup function in pairedRDD
 namesRdd.lookup(mostPopular._2)(0)
 

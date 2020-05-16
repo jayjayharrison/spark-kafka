@@ -1,4 +1,12 @@
-From Frank Kane Udemy Course
+### to Access Broadcast variable, do .value to get the actually variable
+
+```
+scala> val broadcastVar = sc.broadcast(Array(1, 2, 3))
+broadcastVar: org.apache.spark.broadcast.Broadcast[Array[Int]] = Broadcast(0)
+
+scala> broadcastVar.value
+res0: Array[Int] = Array(1, 2, 3)
+```
 ```
 import java.nio.charset.CodingErrorAction
 import scala.io.Codec

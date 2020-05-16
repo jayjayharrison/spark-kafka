@@ -1,3 +1,4 @@
+  ```
   val Data = Seq(
     Row("James",List(List("Java","Scala","C++"),List("Spark","Java"))),
     Row("Michael",List(List("Spark","Java","C++"),List("Spark","Java"))),
@@ -19,3 +20,4 @@ import spark.implicits._
 val df2 = df.select($"name",explode($"subjects"))
   
 df.select($"name",flatten($"subjects")).show(false)
+```

@@ -11,6 +11,7 @@ val dataFrame = rdd.toDF()
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.types.StructField
 import org.apache.spark.sql.types.StringType
+
 val schema =  StructType(
     Seq(
       StructField(name = "manager_name", dataType = StringType, nullable = false),
@@ -30,7 +31,7 @@ val dataFrame = spark.createDataFrame(data, schema)
 
 ```
 
-From existing RDD by programmatically specifying the schema
+### From existing RDD by programmatically specifying the schema, and map row class
 ```
 def dfSchema(columnNames: List[String]): StructType =
   StructType(

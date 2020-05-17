@@ -1,3 +1,22 @@
+### From RDD to DS,  map RDD to a case class 
+
+```
+case class Person(ID:Int, name:String, age:Int, numFriends:Int)
+    
+val people = rdd.map(mapper) // return RDD of Person   rdd.map( Person(_.split(',')(0).toInt, _.split(',')(1).toString .... ))
+
+import spark.implicits._
+val schemaPeople = people.toDS
+
+
+def mapper(line:String): Person = {
+    val fields = line.split(',')  
+    val person:Person = Person(fields(0).toInt, fields(1), fields(2).toInt, fields(3).toInt)
+    return person }
+```
+
+### From Data Frame to DS
+
 ```
 import org.apache.spark.sql.SparkSession
 

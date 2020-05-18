@@ -79,7 +79,7 @@ people.filter("age > 30")
      .groupBy(department("name"), "gender")
      .agg(avg(people("salary")), max(people("age")))
 ```
-### 9. Load/Write CSV with options
+### 9. Load/Write CSV with options,  Schema 
 ```
 val df = spark.read.option("delimiter", "\t").csv("data/people.csv")
 // or 
@@ -99,6 +99,15 @@ df.write
 .option("nullValue","NA")
 .made("overwrite")
 .save('')
+
+// load with DDL like Schema definition
+spark.read
+.format("csv")
+.option("delimiter","\t")
+.option("path","data1")
+.schema("id Int, name String, address String, ztate String,zip String")
+.load()
+.show(false)
 
 ```
 ### 10. Writer parquet with partition

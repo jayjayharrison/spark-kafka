@@ -46,3 +46,50 @@ scala> peopleds.show()
 
 
 ```
+
+
+```
+val arrayStructureData = Seq(
+    Row(Row("James","","Smith"),List("Java","Scala","C++"),"OH","M"),
+    Row(Row("Anna","Rose",""),List("Spark","Java","C++"),"NY","F"),
+    Row(Row("Julia","","Williams"),List("CSharp","VB"),"OH","F")
+  )
+
+  val arrayStructureSchema = new StructType()
+    .add("name",new StructType()
+      .add("firstname",StringType)
+      .add("middlename",StringType)
+      .add("lastname",StringType))
+    .add("languages", ArrayType(StringType))
+    .add("state", StringType)
+    .add("gender", StringType)
+
+  val df = spark.createDataFrame(
+    spark.sparkContext.parallelize(arrayStructureData),arrayStructureSchema)
+  df.printSchema()
+  df.show()
+
+root
+ |-- name: struct (nullable = true)
+ |    |-- firstname: string (nullable = true)
+ |    |-- middlename: string (nullable = true)
+ |    |-- lastname: string (nullable = true)
+ |-- languages: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- state: string (nullable = true)
+ |-- gender: string (nullable = true)
+
++--------------------+------------------+-----+------+
+|                name|         languages|state|gender|
++--------------------+------------------+-----+------+
+|    [James, , Smith]|[Java, Scala, C++]|   OH|     M|
+|      [Anna, Rose, ]|[Spark, Java, C++]|   NY|     F|
+| [Julia, , Williams]|      [CSharp, VB]|   OH|     F|
+|[Maria, Anne, Jones]|      [CSharp, VB]|   NY|     M|
+|  [Jen, Mary, Brown]|      [CSharp, VB]|   NY|     M|
+|[Mike, Mary, Will...|      [Python, VB]|   OH|     M|
++--------------------+------------------+-----+------+
+
+```
+
+

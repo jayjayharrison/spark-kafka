@@ -109,6 +109,11 @@ spark.read
 .load()
 .show(false)
 
+spark.read
+.option("delimiter","\t")
+.schema("id Int, name String, address String, ztate String,zip String")
+.csv("data1")
+.show(10,false)
 ```
 ### 10. Writer parquet with partition
 ```

@@ -83,8 +83,15 @@ people.filter("age > 30")
      .groupBy(department("name"), "gender")
      .agg(avg(people("salary")), max(people("age")))
 ```
-### 9. Load/Write CSV with options,  Schema 
+### 9. Load/Write CSV with options,  Schema , timestampFormat
 ```
+jay,2014-01-04 13:43:14.653
+
+scala> spark.read.option("inferSchema","true").option("timestampFormat","yyyy-MM-dd HH:mm:ss.SSS").csv("data").printSchema
+root
+ |-- _c0: string (nullable = true)
+ |-- _c1: timestamp (nullable = true)
+
 val df = spark.read.option("delimiter", "\t").csv("data/people.csv")
 // or 
 val df = spark.read
@@ -92,7 +99,7 @@ val df = spark.read
   .option("header", "true")
   .option("inferSchema", "true") // inferSchema will allow spark to automatecally map the DDL.
   .option("nullValue", "NA")
-  .option("timestampFormat", "yyyy-MM-dd'T'HH:mm?:ss")
+  .option("timestampFormat", "yyyy-MM-dd'T'HH:mm:ss")
   .option("mode", "failfast")
   .option("path", "survey.csv")
   .load()

@@ -109,6 +109,7 @@ spark.read
 .load()
 .show(false)
 
+// must put .csv last,  .csv will return dataframe already;   .option.schema still return dataframe reader
 spark.read
 .option("delimiter","\t")
 .schema("id Int, name String, address String, ztate String,zip String")

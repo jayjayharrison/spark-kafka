@@ -15,10 +15,14 @@ val spark = SparkSession.builder
 ```
 data/people.json      {"name":"jay","age",39},{"name":"Linsey","age",22}
 val df = spark.read.json("data/people.json")
-df.select("name", "age").filter("age > 30").show()
+
+df.select("name", "age").filter("age > 30").show()   //filter("xxx")   xxx refer to sql filter syntax, use == for equal
+
+//filter($"column" === ""  ) // AND(&&), OR(||), and NOT(!)    for columnb syntax use === 
+
 //for a list of Methods inherited from class org.apache.spark.sql.Column, //https://spark.apache.org/docs/1.6.0/api/java/org/apache/spark/sql/ColumnName.html
 
-// column function 
+// column function,  case when statement 
 df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initial"), when($"age">30,"mid age").when($"age"<=30,"younge").otherwise("na").alias("age group")).show()
 
 +------+---------+--------------+-------+---------+

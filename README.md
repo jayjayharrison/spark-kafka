@@ -5,30 +5,28 @@
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.builder
 .appName("SparkSessionExample") 
-.master("local[4]") 
-.config("spark.sql.warehouse.dir", "target/spark-warehouse")
+.master("local[4]") 		// not need to set this in production, when not mentioned, it will refer to default config file
+.config("spark.sql.warehouse.dir", "target/spark-warehouse") / not need to set this, it will refer to default config file
 .enableHiveSupport() //enables access to Hive metastore, Hive serdes, and Hive udfs.
 .getOrCreate
 ```
 
 ### 2. DataFrame Load Json and Transformation
 ```
-data/people.json      {"name":"jay","age",39},{"name":"Linsey","age",22}
-val df = spark.read.json("data/people.json")
+data/people.json   {"name":"jay","age",39},{"name":"Linsey","age",22}
+val df = spark.read.json("data/people.json") //.read.option("header","true").csv("path")
 
-df.select("name", "age").filter("age > 30").show()   //filter("xxx")   xxx refer to sql filter syntax, use == for equal
+df.select("name", "age").filter("age > 30").show()  //filter("string")   string refer to sql filter syntax, use == for equal
+//filter($"column" =!= ""  ) // AND(&&), OR(||), and NOT(!)    for df(column) syntax use === 
 
-// Casts colA to IntegerType.
+// Casting Column
 import org.apache.spark.sql.types.IntegerType
-df.select(df("colA").cast(IntegerType))
-// equivalent to
-df.select(df("colA").cast("int"))
+df.select(df("colA").cast(IntegerType))  //equivalent to df.select(df("colA").cast("int"))
 
-//filter($"column" === ""  ) // AND(&&), OR(||), and NOT(!)    for columnb syntax use === 
+//https://spark.apache.org/docs/1.6.0/api/java/org/apache/spark/sql/ColumnName.html  ie. col.method
+//for sql function that can take column name as input org.apache.spark.sql.functions ie. trim(col), initcap(col)
 
-//for a list of Methods inherited from class org.apache.spark.sql.Column, //https://spark.apache.org/docs/1.6.0/api/java/org/apache/spark/sql/ColumnName.html
-
-// column function,  case when statement 
+// Case when statement 
 df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initial"), when($"age">30,"mid age").when($"age"<=30,"younge").otherwise("na").alias("age group")).show()
 
 +------+---------+--------------+-------+---------+
@@ -38,13 +36,13 @@ df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initia
 |Linsey|       23|         false|      L|   younge|
 +------+---------+--------------+-------+---------+
 ```
-### 3. Use hiveContext
+### 3. TempView and hiveCatalog
 ```
 df.createOrReplaceTempView("people")
 spark.catalog.listTables.show
 spark.sql("SELECT * FROM people where age > 21").show()
 ```
-### 4. Uggregation
+### 4. aggregation
 ```
 val df_cnt = df.groupby("age").count()
 ```
@@ -75,9 +73,9 @@ empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal
 ```
 ### 7.1 window frame, cumulutive count/sum
 ```
-count how many people have salavery less or equal to current row salary. 
-count() OVER order by salary, have default frame from top row( lowest salary) to current salary.
-Over order by salary DESC, have same window frame, but now top row is highest salary, so it will return how many people have salary greater or equal to you
+// count how many people have salavery less or equal to current row salary. 
+// count() OVER order by salary, have default frame from top row( lowest salary) to current salary.
+// Over order by salary DESC, have same window frame, but now top row is highest salary, so it will return how many people have salary greater or equal to you
 
 sql("SELECT salary, count(*) OVER (ORDER BY salary) AS cnt FROM t_employee order by salary").show //unbounding preceding to current
 sql("SELECT salary, count(*) OVER (ORDER BY salary RANGE between unbounding following and current row) AS cnt FROM t_employee order by salary").show   //return count of salary that are creater or equal to you
@@ -85,12 +83,11 @@ sql("SELECT salary, count(*) OVER (ORDER BY salary RANGE between unbounding foll
 ### 8.  Join
 ```
 people.filter("age > 30")
-     .join(department, people("deptId") === department("id"))
+     .join(department, people("deptId") === department("id"), 'left_outer' ) //inner, cross, outer, full, full_outer, left, left_outer
      .groupBy(department("name"), "gender")
      .agg(avg(people("salary")), max(people("age")))
 ```
-### 8.1   Apply standardized transformation to All column using FoldLefr
-
+### 8.1  Apply standardized transformation to All column using FoldLeft
 ```
 val cleaned_df = srcDf.columns.foldLeft(srcDf) { 
                 (resultDFplaceHolder, colName) => 

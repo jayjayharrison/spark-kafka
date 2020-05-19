@@ -1,3 +1,13 @@
+### using union and group by
+```
+import org.apache.spark.sql.functions.lit
+
+```
+
+
+
+
+### using except methods
 ```
 // return the record that are in df1 but not in df2 
 val diffdf = df1.except(df2)

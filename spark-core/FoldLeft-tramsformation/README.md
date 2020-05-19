@@ -13,7 +13,7 @@ val cleaned_df = raw_df.columns.foldLeft(raw_df) {
   resultDF.withColumn( colName, initcap(trim(raw_df(colName))) )
 }
 
-// resultDF.withColumn( colName, regexp_replace(raw_df(colName), "\\s+", "") 
+// resultDF.withColumn( colName, regexp_replace(raw_df(colName), "(^\\s)+|(\\s)+$", "") // trim all space chrater \s \t etc
 
 cleaned_df.show()
 ```

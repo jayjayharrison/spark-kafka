@@ -17,7 +17,6 @@ val cleaned_df = raw_df.columns.foldLeft(raw_df) {
 
 cleaned_df.show()
 ```
-
 ## 2) Rename column name, replace space with _ and lowercase colmn name
 ```
 val renamed_df = cleaned_df.columns.foldLeft(cleaned_df) { 
@@ -33,5 +32,20 @@ renamed_df.show
 |  Ali|       Hr|Junior Recruiter|
 |Maryk|      I T|   Web Developer|
 +-----+---------+----------------+
+```
+## 3) Apply UDF
+```
+def snakeCaseColumns(df: DataFrame): DataFrame = {
+  df.columns.foldLeft(df) { (resultDF, colName) =>
+    resultDF.withColumnRenamed(colName, toSnakeCase(colName))
+  }
+}
+
+def toSnakeCase(str: String): String = {
+  str.toLowerCase().replace(" ", "_")
+}
+
+val df = sourceDF.transform(snakeCaseColumns)
+
 ```
    

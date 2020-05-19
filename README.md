@@ -89,6 +89,18 @@ people.filter("age > 30")
      .groupBy(department("name"), "gender")
      .agg(avg(people("salary")), max(people("age")))
 ```
+### 8.1   Apply standardized transformation to All column using FoldLefr
+
+```
+val cleaned_df = srcDf.columns.foldLeft(srcDf) { 
+                (resultDFplaceHolder, colName) => 
+                       resultDFplaceHolder.withColumn( colName, 
+                                                  when(srcDf(colName).isNull, "")
+                                                  .when(srcDf(colName) === "null", "")
+                                                  .otherwise( trim(srcDf(colName))) 
+                                           ) 
+                                      }  
+```
 ### 9. Load/Write CSV with options,  Schema , timestampFormat
 ```
 jay,2014-01-04 13:43:14.653

@@ -1,6 +1,6 @@
 
 ## 1) Remove trim space and initial cap in all columns
-````
+```
 val raw_df = Seq(("jay", "sales", "sales manager ") , ("ali", "HR ","junior Recruiter "), ("maryk","I t","Web developer")).
               toDF("NAME", "DEPT name", "job title")
 

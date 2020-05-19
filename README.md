@@ -18,6 +18,12 @@ val df = spark.read.json("data/people.json")
 
 df.select("name", "age").filter("age > 30").show()   //filter("xxx")   xxx refer to sql filter syntax, use == for equal
 
+// Casts colA to IntegerType.
+import org.apache.spark.sql.types.IntegerType
+df.select(df("colA").cast(IntegerType))
+// equivalent to
+df.select(df("colA").cast("int"))
+
 //filter($"column" === ""  ) // AND(&&), OR(||), and NOT(!)    for columnb syntax use === 
 
 //for a list of Methods inherited from class org.apache.spark.sql.Column, //https://spark.apache.org/docs/1.6.0/api/java/org/apache/spark/sql/ColumnName.html

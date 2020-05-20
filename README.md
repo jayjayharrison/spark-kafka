@@ -131,7 +131,9 @@ df.write
 .option("nullValue","NA")
 .made("overwrite")
 .save('')
-
+```
+### 9.1. .schema("id Int, name String, address String, ztate String,zip String")
+```
 // load with DDL like Schema definition
 spark.read
 .format("csv")

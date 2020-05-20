@@ -104,7 +104,7 @@ val cleaned_df = srcDf.columns.foldLeft(srcDf) {
                                            ) 
                                       }  
 ```
-# 3. Load/Write CSV with options,  Schema , timestampFormat
+# 3. DataFrameReader and Writer; CSV with options,  Schema , timestampFormat
 ```
 jay,2014-01-04 13:43:14.653
 
@@ -132,7 +132,7 @@ df.write
 .made("overwrite")
 .save('')
 ```
-### 9.1. .schema("id Int, name String, address String, ztate String,zip String")
+### 3.2. .schema("id Int, name String, address String, ztate String,zip String")
 ```
 // load with DDL like Schema definition
 spark.read
@@ -150,7 +150,7 @@ spark.read
 .csv("data1")
 .show(10,false)
 ```
-### 10. Writer parquet with partition and specify compress algorithin 
+### 3.3. Writer parquet with partition and specify compress algorithin 
 ###	.option("compression","none"), default is "snappy"
 ```
 df.write
@@ -162,7 +162,7 @@ df.write
   .mode("overwrite") //append|overwrite|errorIfExists|ignore
   .save("path")
 ```
-
+# RDD
 ### 11. RDD quick example, list count of file in all root directory 
 ```
 sudo find / > flist.txt # list all directory to flist.txt 
@@ -179,7 +179,7 @@ val kvRDD= listRDD.map(a => (a(0),1)) # convert the list into a tuple/key value 
 val fcountRDD = kvRDD.reduceByKey( (x,y)=> x+y ) 
 fcountRDD.collect() # return result RDD to driver
 ```
-### 12. Spark DF quick Sample 
+# 4. another Spark DF quick Sample 
 ```
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.expressions.Window
@@ -264,6 +264,9 @@ val kvRDD= listRDD.map(a => (a(0),1))                   # convert the list into 
 val fcountRDD = kwRDD.reduceByKey( (x,y)=> x+y )        # 
 
 fcountRDD.collect()                                     # return result RDD to driver 
+
+
+# Short Cut Key
 ```
 scala> :help
 ...

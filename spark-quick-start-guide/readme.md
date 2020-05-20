@@ -1,20 +1,23 @@
 ## Tips
 
-#### 1) run linux shell command in Scala shell
+## 1) execute external system commands in Scala
 ```
 import sys.process._
+Use the .! method to execute the command and get its exit status.
+Use the .!! method to execute the command and get its output.
+Use the .lines method to execute the command in the background and get its result as a Stream.
 
-
+"ls -al".!
+"hdfs -dfs -ls /user/jay/d//".!
+// replace . with a whitespace, still work
 ```
 
-
-
-#### quick create dataFrame from collection
+## 10) quick create dataFrame from collection
 ```
 val emp = Seq((101, "Amy", Some(2)),(100, "Jay", Some(5))
 val employee = spark.createDataFrame(emp).toDF("employeeId","employeeName","managerId")
 ```
-#### create DataSet from DataFrame
+## 20) create DataSet from DataFrame
 ```
 case class Employee(employeeId:Integer, employeeName:String, managerId:String) //something:Double, timestamp:Integer
 val empDs = employee.as[Employee]

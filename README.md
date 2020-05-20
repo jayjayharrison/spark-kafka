@@ -20,7 +20,7 @@ df.select("name", "age").filter("age > 30").show()
 //filter($"column" =!= ""  ) // AND(&&), OR(||), and NOT(!)    for df(column) syntax use === 
 
 // SQL syntax filtering
-filter(" name = 'kay' and id is not null ")
+filter(" name = 'kay' and id is not null or somecolum like '%str% ")
 where (" name = 'kay' and id is not null ")
 
 // Casting Column

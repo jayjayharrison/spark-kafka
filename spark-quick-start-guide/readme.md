@@ -1,5 +1,14 @@
 ## Tips
 
+#### 1) run linux shell command in Scala shell
+```
+import sys.process._
+
+
+```
+
+
+
 #### quick create dataFrame from collection
 ```
 val emp = Seq((101, "Amy", Some(2)),(100, "Jay", Some(5))

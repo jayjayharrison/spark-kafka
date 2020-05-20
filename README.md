@@ -150,10 +150,12 @@ spark.read
 .csv("data1")
 .show(10,false)
 ```
-### 10. Writer parquet with partition
+### 10. Writer parquet with partition and specify compress algorithin 
+###	.option("compression","none"), default is "snappy"
 ```
 df.write
   .format("parquet") 
+  .option("compression","none")
   .partitionBy("column_name")
   .bucketBy("column_name")
   .sortBy("column_name")

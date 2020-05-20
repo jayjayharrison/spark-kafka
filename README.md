@@ -104,7 +104,7 @@ val cleaned_df = srcDf.columns.foldLeft(srcDf) {
                                            ) 
                                       }  
 ```
-# 3. DataFrameReader and Writer; CSV with options,  Schema , timestampFormat
+# 3. DataFrame Reader and Writer; CSV with options,  Schema , timestampFormat
 ```
 jay,2014-01-04 13:43:14.653
 
@@ -152,8 +152,10 @@ spark.read
 ```
 ### 3.3. Writer parquet with partition and specify compress algorithin 
 ###	.option("compression","none"), default is "snappy"
+###     .coalesce(n) : specify number of file to write,  must be small than default
 ```
-df.write
+df.coalesce(1)
+  .write
   .format("parquet") 
   .option("compression","none")
   .partitionBy("column_name")
@@ -162,8 +164,8 @@ df.write
   .mode("overwrite") //append|overwrite|errorIfExists|ignore
   .save("path")
 ```
-# RDD
-### 11. RDD quick example, list count of file in all root directory 
+# 3 RDD example
+### list count of file in all root directory 
 ```
 sudo find / > flist.txt # list all directory to flist.txt 
 //hadoop fs -copyFromLocal flist.txt /user/jay

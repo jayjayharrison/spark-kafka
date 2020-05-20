@@ -27,7 +27,7 @@ df.select(df("colA").cast(IntegerType))  //equivalent to df.select(df("colA").ca
 //for sql function that can take column name as input org.apache.spark.sql.functions ie. trim(col), initcap(col)
 
 //Concatenate  with literal string
-import org.apache.spark.sql.function.{col,lit,concat}
+import org.apache.spark.sql.functions.{col,lit,concat}
 select( concat( col("frst_nm") , lit(" "), col("lst_nm") ).alias("full_name") ) 
 
 // Case when statement 

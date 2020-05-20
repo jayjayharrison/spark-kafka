@@ -269,6 +269,14 @@ scala> :help
 scala> :short
 Keybinding mapping for JLine. The format is:
 [key code]: [logical operation]
+
+CTRL-K: erase the current cursor position to end of the line
+CTRL-U: delete all the characters before the cursor position
+CTRL-Y: paste erased line by above command
+
+ctrl+insert : copy 
+shift+insert : paste
+
 CTRL-B: move to the previous character
 CTRL-G: move to the previous word
 CTRL-F: move to the next character
@@ -280,13 +288,13 @@ BACKSPACE, CTRL-H: delete the previous character
 deleting the previous character
 TAB, CTRL-I: signal that console completion should be attempted
 CTRL-J, CTRL-M: newline
-CTRL-K: erase the current line
+
 ENTER: newline
 CTRL-L: clear screen
 CTRL-N: scroll to the next element in the history buffer
 CTRL-P: scroll to the previous element in the history buffer
 CTRL-R: redraw the current line
-CTRL-U: delete all the characters before the cursor position
+
 CTRL-V: paste the contents of the clipboard (useful for Windows terminal)
 CTRL-W: delete the word directly before the cursor
 DELETE, CTRL-?: delete the previous character

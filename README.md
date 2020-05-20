@@ -11,7 +11,7 @@ val spark = SparkSession.builder
 .getOrCreate
 ```
 
-### 2. DataFrame Load Json and Transformation
+### 2. DataFrame basic Transformation
 ```
 data/people.json   {"name":"jay","age",39},{"name":"Linsey","age",22}
 val df = spark.read.json("data/people.json") //.read.option("header","true").csv("path")
@@ -25,6 +25,10 @@ df.select(df("colA").cast(IntegerType))  //equivalent to df.select(df("colA").ca
 
 //https://spark.apache.org/docs/1.6.0/api/java/org/apache/spark/sql/ColumnName.html  ie. col.method
 //for sql function that can take column name as input org.apache.spark.sql.functions ie. trim(col), initcap(col)
+
+//Concatenate  with literal string
+import org.apache.spark.sql.function.{col,lit,concat}
+select( concat( col("frst_nm") , lit(" "), col("lst_nm") )) 
 
 // Case when statement 
 df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initial"), when($"age">30,"mid age").when($"age"<=30,"younge").otherwise("na").alias("age group")).show()

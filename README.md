@@ -10,7 +10,6 @@ val spark = SparkSession.builder
 .enableHiveSupport() //enables access to Hive metastore, Hive serdes, and Hive udfs.
 .getOrCreate
 ```
-
 ### 2. DataFrame basic Transformation
 ```
 data/people.json   {"name":"jay","age",39},{"name":"Linsey","age",22}
@@ -29,6 +28,9 @@ df.select(df("colA").cast(IntegerType))  //equivalent to df.select(df("colA").ca
 //Concatenate  with literal string
 import org.apache.spark.sql.functions.{col,lit,concat}
 select( concat( col("frst_nm") , lit(" "), col("lst_nm") ).alias("full_name") ) 
+
+// using spark.sql selectExpr sql like sytax
+df.selectExpr( "concat(frst_nm,' ',lst_nm) as full_name", " '001' as hard_code ").show
 
 // Case when statement 
 df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initial"), when($"age">30,"mid age").when($"age"<=30,"younge").otherwise("na").alias("age group")).show()

@@ -9,6 +9,8 @@ val spark = SparkSession.builder
 .config("spark.sql.warehouse.dir", "target/spark-warehouse") / not need to set this, it will refer to default config file
 .enableHiveSupport() //enables access to Hive metastore, Hive serdes, and Hive udfs.
 .getOrCreate
+import spark.implicits._
+import org.apache.spark.sql.functions.{col,lit}
 ```
 # 2. DataFrame basic Transformation
 ```

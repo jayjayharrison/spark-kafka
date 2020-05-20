@@ -1,6 +1,6 @@
 ## DF-Transformation-Quick-Reference-Sheet
 
-### 1. Create spark session 
+# 1. Create spark session 
 ```
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.builder
@@ -10,7 +10,7 @@ val spark = SparkSession.builder
 .enableHiveSupport() //enables access to Hive metastore, Hive serdes, and Hive udfs.
 .getOrCreate
 ```
-### 2. DataFrame basic Transformation
+# 2. DataFrame basic Transformation
 ```
 data/people.json   {"name":"jay","age",39},{"name":"Linsey","age",22}
 val df = spark.read.json("data/people.json") //.read.option("header","true").csv("path")
@@ -42,17 +42,17 @@ df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initia
 |Linsey|       23|         false|      L|   younge|
 +------+---------+--------------+-------+---------+
 ```
-### 3. TempView and hiveCatalog
+### 2.1. TempView and hiveCatalog
 ```
 df.createOrReplaceTempView("people")
 spark.catalog.listTables.show
 spark.sql("SELECT * FROM people where age > 21").show()
 ```
-### 4. aggregation
+### 2.2. aggregation
 ```
 val df_cnt = df.groupby("age").count()
 ```
-### 5. Window function - find eldest person in a window partition/group 
+### 2.3. Window function - find eldest person in a window partition/group 
 ```
 val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.partitionBy("some_group")).filter($"age" === $"eldest_person_in_a_group")
 
@@ -60,7 +60,7 @@ val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.parti
 val df2 = df.withColumn("eldest_person_in_a_group", rank() over Window.partitionBy("some_group").orderBy("age") as rnk)
     .filter($"rnk"=== 1)
 ```
-### 6. Window function - find highest 3 salary in each dept 
+### 2.4. Window function - find highest 3 salary in each dept 
 ```
 val partitionWindow = Window.partitionBy($"dept").orderBy($"salary".desc)
 val rankTest = rank().over(partitionWindow)
@@ -72,12 +72,12 @@ empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc
 //using withColumn
 empDF.withColumn("rank", rank() over Window.partitionBy("deptno").orderBy($"sal".desc)).filter($"rank" === 1).show()
 ```
-### 7. Window Frame, Find min of salary; unboundedfllowwing represent bottom most row when doing desc ordering  
+### 2.5. Window Frame, Find min of salary; unboundedfllowwing represent bottom most row when doing desc ordering  
 #### default window frame is 'range between unbounded preceding and current row', then in desc ordering, current row is always the last so need to explictly specify window frame. If use min(salary)order by asc, then default frame will also work
 ```
 empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal".desc).rowsBetween(Window.currentRow, Window.unboundedFollowing)) as "rank").show
 ```
-### 7.1 window frame, cumulutive count/sum
+### 2.6.1 window frame, cumulutive count/sum
 ```
 // count how many people have salavery less or equal to current row salary. 
 // count() OVER order by salary, have default frame from top row( lowest salary) to current salary.
@@ -86,14 +86,14 @@ empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal
 sql("SELECT salary, count(*) OVER (ORDER BY salary) AS cnt FROM t_employee order by salary").show //unbounding preceding to current
 sql("SELECT salary, count(*) OVER (ORDER BY salary RANGE between unbounding following and current row) AS cnt FROM t_employee order by salary").show   //return count of salary that are creater or equal to you
 ```
-### 8.  Join
+### 2.7.  Join
 ```
 people.filter("age > 30")
      .join(department, people("deptId") === department("id"), 'left_outer' ) //inner, cross, outer, full, full_outer, left, left_outer
      .groupBy(department("name"), "gender")
      .agg(avg(people("salary")), max(people("age")))
 ```
-### 8.1  Apply standardized transformation to All column using FoldLeft
+### 2.8.  Apply standardized transformation to All column using FoldLeft
 ```
 val cleaned_df = srcDf.columns.foldLeft(srcDf) { 
                 (resultDFplaceHolder, colName) => 
@@ -104,7 +104,7 @@ val cleaned_df = srcDf.columns.foldLeft(srcDf) {
                                            ) 
                                       }  
 ```
-### 9. Load/Write CSV with options,  Schema , timestampFormat
+# 3. Load/Write CSV with options,  Schema , timestampFormat
 ```
 jay,2014-01-04 13:43:14.653
 

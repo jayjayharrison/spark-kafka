@@ -28,7 +28,7 @@ df.select(df("colA").cast(IntegerType))  //equivalent to df.select(df("colA").ca
 
 //Concatenate  with literal string
 import org.apache.spark.sql.function.{col,lit,concat}
-select( concat( col("frst_nm") , lit(" "), col("lst_nm") )) 
+select( concat( col("frst_nm") , lit(" "), col("lst_nm") ).alias("full_name") ) 
 
 // Case when statement 
 df.select($"name", $"age" + 1, $"name".isNull, $"name".substr(1,1).alias("Initial"), when($"age">30,"mid age").when($"age"<=30,"younge").otherwise("na").alias("age group")).show()

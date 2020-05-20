@@ -1,6 +1,6 @@
 # package application using sbt 
 
-### test.scala
+### test.scala  dont forget to end with spark.stop() to end the session
 ```
 package com.jay.app.examples
 

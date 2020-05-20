@@ -15,8 +15,13 @@ val spark = SparkSession.builder
 data/people.json   {"name":"jay","age",39},{"name":"Linsey","age",22}
 val df = spark.read.json("data/people.json") //.read.option("header","true").csv("path")
 
-df.select("name", "age").filter("age > 30").show()  //filter("string")   string refer to sql filter syntax, use == for equal
+// Filtering 
+df.select("name", "age").filter("age > 30").show()  
 //filter($"column" =!= ""  ) // AND(&&), OR(||), and NOT(!)    for df(column) syntax use === 
+
+// SQL syntax filtering
+filter(" name = 'kay' and id is not null ")
+where (" name = 'kay' and id is not null ")
 
 // Casting Column
 import org.apache.spark.sql.types.IntegerType

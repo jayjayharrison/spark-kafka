@@ -16,6 +16,8 @@ val unionDf = srcDf.union(tgtDf)
 val all_col = unionDf.columns.toSeq              
 val main_col = unionDf.columns.toSeq.dropRight(1) //drop the last column src_nm, use this for group by 
 
+// val main_col = unionDf.columns.toSeq.filterNot( e => e == "src")
+
     // trim all column and covert null to empty string
     // this is a heavy operation, it initialized a new df from unionDf
 val trimed_df = all_col.foldLeft(unionDf) { 

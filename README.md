@@ -59,6 +59,13 @@ spark.sql("SELECT * FROM people where age > 21").show()
 ```
 val df_cnt = df.groupby("age").count()
 ```
+### 2.2.1 CASE WHEN using expr : SQL syntax
+```
+import org.apache.spark.sql.functions.{expr,sum}
+df.groupBy(expr("length(word)")).count()
+df.agg( sum(expr("CASE WHEN x = 'Yes' THEN 1 ELSE 0 END" )).aliase("yes_cnt"), sum(xxxx)   )
+
+```
 ### 2.3. Window function - find eldest person in a window partition/group 
 ```
 val df2 = df.withColumn("eldest_person_in_a_group", max("age") over Window.partitionBy("some_group")).filter($"age" === $"eldest_person_in_a_group")

@@ -1,8 +1,11 @@
-### using union and group by to find duplicate
+### Using Union and Groupby to find duplicate
 ```
 import org.apache.spark.sql.functions.lit
 
     // initiate source and target DF
+val df1 = spark.read.csv("data") 
+val df2 = spark.read.csv("data1")
+    
 val srcDf = df1.withColumn("src", lit("df1"))
 val tgtDf = df2.withColumn("src", lit("df2"))
 
@@ -10,12 +13,12 @@ val tgtDf = df2.withColumn("src", lit("df2"))
 val unionDf = srcDf.union(tgtDf)
 
     //extract column name
-val col = unionDf.columns.toSeq              
-val col1 = unionDf.columns.toSeq.dropRight(1) //drop the last column src_nm, use this for group by 
+val all_col = unionDf.columns.toSeq              
+val main_col = unionDf.columns.toSeq.dropRight(1) //drop the last column src_nm, use this for group by 
 
     // trim all column and covert null to empty string
     // this is a heavy operation, it initialized a new df from unionDf
-val trimed_df = col.foldLeft(unionDf) { 
+val trimed_df = all_col.foldLeft(unionDf) { 
                 (resultDf, colName) => 
                        resultDf.withColumn( colName, 
                                                   when(unionDf(colName).isNull, "")
@@ -25,9 +28,11 @@ val trimed_df = col.foldLeft(unionDf) {
                                       }  
 
     // groupby 
-val difference = trimed_df.select(col1.head, col1.tail: _*).groupBy(col1.head, col1.tail: _*).count().filter("count != 2").sort($"_c0".desc)
+    // : _* syntax => passing all Seq as varargs,  cannot use select(main_col: _*) directly, because first paramater of select(a, b* ) must be explicitly specified, thus (main_col.head, main_col.tail: _*)
+    
+val mismatchDf = trimed_df.groupBy(main_col.head, main_col.tail: _*).agg(count("*").alias("cnt"),max("src")).filter("cnt != 2").sort($"_c0".desc)
 
-difference.show()
+mismatchDf.show()
 
     // using map and : _* var argement, to select all column in Seq 
     // trimed_df.select( col.map( x=> unionDf(x)): _* ).show

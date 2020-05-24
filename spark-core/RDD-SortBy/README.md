@@ -5,9 +5,9 @@
 ```
 ex sort k1 asc, k2 desc
 
-((k1,-k2), k2 , v1, v2)
+((k1,-k2), k1, k2, v1, v2)
 you need to store a k2 so you can map it back later
 
-rdd.sortByKey().map( (_._1._1, _._2 ) )
+rdd.sortByKey().map( _._2 )  => (k1, k2, v1, v2)
 
 ```

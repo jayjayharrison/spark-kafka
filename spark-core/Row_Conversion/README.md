@@ -1,4 +1,7 @@
 
+
+https://stackoverflow.com/questions/33007840/spark-extracting-values-from-a-row?noredirect=1&lq=1
+
 val order = Seq((1, "0012P"), (1, "448xx"), (2, "553"),(2, "5788"),(3,"4aa1")).toDF("cust_id", "prod_id")
 
 import spark.implicits._

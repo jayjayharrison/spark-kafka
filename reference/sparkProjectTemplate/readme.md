@@ -1,6 +1,14 @@
 ### Simplified template - base off holdenk/sparkProjectTemplate.g8
 
 ```
+git --clone https://github.com/jayjayjohn/spark-kafka/edit/master/reference/sparkProjectTemplate
+
+cd sparkProjectTemplate
+
+echo "test test world world count" > in.txt
+
+sbt package
+
 spark-submit --class com.example.sparkProject.CountingApp \
             --name myapp \
             --master local[1] \

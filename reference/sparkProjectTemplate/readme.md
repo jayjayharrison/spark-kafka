@@ -1,7 +1,7 @@
 ### Simplified template - base off holdenk/sparkProjectTemplate.g8
 
 ```
-git --clone https://github.com/jayjayjohn/spark-kafka/edit/master/reference/sparkProjectTemplate
+git clone https://github.com/jayjayjohn/spark-kafka/edit/master/reference/sparkProjectTemplate
 
 cd sparkProjectTemplate
 

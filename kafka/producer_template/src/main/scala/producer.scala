@@ -15,7 +15,7 @@ object kafka_producer {
 	// conf.getConfig(args(0)) for input argument  
     val envProps = conf.getConfig("dev")	  
 	  
-    val kafka_topic_name = envProps.getString("topic")
+    val kafka_topic_name = envProps.getString("kafka.topic")
     val kafka_bootstrap_servers = envProps.getString("bootstrap.server")
 
     // ==============Streaming HTTP Request to API===================== 

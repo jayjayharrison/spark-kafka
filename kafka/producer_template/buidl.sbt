@@ -9,3 +9,5 @@ libraryDependencies += "org.apache.kafka" %% "kafka" % "2.3.1"
 
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.11.0"
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.11.0"
+
+libraryDependencies += "com.typesafe" % "config" % "1.3.2"

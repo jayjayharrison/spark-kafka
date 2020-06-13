@@ -20,7 +20,7 @@ bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 ### Start Kafka Server 
 ```
-bin/kafka-server-start.sh config/server.properties 
+bin/kafka-server-start.sh -daemon config/server.properties 
 # nohup bin/kafka-server-start.sh config/server.properties > ~/kafka_nohup.out 2> ~/kafka_nohup.err < /dev/null &
 # jobs -l # to list running nohup job in current shell session. OR ps -ef | grep "nohup "
 # jps -l
@@ -32,6 +32,8 @@ kafka_2.12-2.4.0/bin/kafka-topics.sh --list --zookeeper localhost:2181
 ```
 ### Start Producer 
 ```
+curl http://stream.meetup.com/2/rsvps | kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
 message=("hell" "where are you from" "im from iceland" "oh, nice, how cold it there" "no cold at all")
 for x in {1..100}; do echo "Message $x : ${message[$(( ${RANDOM} % ${#message[@]} ))]}"; sleep 2 ; done | bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
 ```

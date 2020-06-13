@@ -11,21 +11,21 @@ import org.apache.kafka.streams.kstream.Printed
 /**
   * Make sure to create 2 topics before running this:
   *
-  *    kafka-topics --create --zookeeper localhost:2181 --partitions 1 --replication-factor 1 --topic rawSentences
+  *    kafka-topics.sh --create --zookeeper localhost:2181 --partitions 1 --replication-factor 1 --topic rawSentences
   *
-  *    kafka-topics --create --zookeeper localhost:2181 --partitions 1 --replication-factor 1 --topic  countedTokens
+  *    kafka-topics.sh --create --zookeeper localhost:2181 --partitions 1 --replication-factor 1 --topic  countedTokens
   *
   * Then add some content in the first one:
   *
-  *   kafka-console-producer --broker-list localhost:9092  --topic rawSentences
+  *   kafka-console-producer.sh --broker-list localhost:9092  --topic rawSentences
   *
   * which you can check by just tailing that topic:
   *
-  *   kafka-console-consumer --bootstrap-server localhost:9092 --topic rawSentences --from-beginning
+  *   kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic rawSentences --from-beginning
   *
   * One the programme below runs (e.g. through "sbt run"), you can simply inspect its output with:
   *
-  *   kafka-console-consumer --bootstrap-server localhost:9092 --key-deserializer org.apache.kafka.common.serialization.StringDeserializer --value-deserializer org.apache.kafka.common.serialization.LongDeserializer --from-beginning --topic countedTokens
+  *   kafka-console-consumer.sh --bootstrap-server localhost:9092 --key-deserializer org.apache.kafka.common.serialization.StringDeserializer --value-deserializer org.apache.kafka.common.serialization.LongDeserializer --from-beginning --topic countedTokens
   *
   *
   * */
@@ -47,7 +47,7 @@ object WordCount extends App {
 
   val counted: KStreamS[String, Long] = textLines
     .flatMapValues( line => line.split("\\W+").toIterable )
-    .map( (_, w) => (w, 1l))
+    .map( (_, w) => (w, 1))
     .groupByKey
     .count
     .toStream

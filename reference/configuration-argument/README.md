@@ -38,3 +38,13 @@ properties.put("password", password)
 val models = spark.read.jdbc(properties.get("url").toString, "ml_models", properties)
 
 ```
+## 4) use enviroment variable
+
+export myvariable=pass
+
+```
+scala> System.getenv("myvariable")
+res0: String = pass
+
+
+```

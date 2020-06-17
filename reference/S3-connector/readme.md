@@ -6,9 +6,9 @@ val s3ak = spark.conf.get("spark.s3.access.key")
 
 val s3sk = spark.conf.get("spark.s3.secret.key")
 
-spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", "AKIAW45SKPH3ZKSL75OU")
+spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", "s3ak")
 
-spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", "kYzfpChT2Rk0f820zEVcGcRg8fVttGwnXD7xYcc+")
+spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", "s3sk+")
 	 
 spark.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "s3.amazonaws.com")
 

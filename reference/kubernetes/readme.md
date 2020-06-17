@@ -1,7 +1,5 @@
-
 10.128.0.8 master-node
 10.128.0.9 worker-node-01
-
 
 sudo su
 yum update
@@ -18,8 +16,6 @@ apt-get install openssh-server
 apt-get install -y docker.io
 
 yum update && yum install -y apt-transport-https curl
-
-
 
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -50,6 +46,17 @@ kubectl get pods -o wide --all-namespaces
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 
 kubectl proxy
+
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+#http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login
+
+kubectl create serviceaccount dashboard -n default
+
+kubectl create clusterrolebinding dashboard-admin -n default \
+--clusterrole=cluster-admin \
+--serviceaccount=default:dashboard
+
+kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode > sk
 
 kubeadm join 10.128.0.16:6443 --token kcg667.c3cy45xy1his1q9i \
     --discovery-token-ca-cert-hash sha256:e0c7018a8c3e76b57c33ea44175d6951ebc639f5f384e7ecd86f7c979a3e080e

@@ -1,6 +1,8 @@
 https://towardsdatascience.com/how-to-build-spark-from-source-and-deploy-it-to-a-kubernetes-cluster-in-60-minutes-225829b744f9
 
 https://developer.sh/posts/spark-kubernetes-guide
+
+https://medium.com/@marcovillarreal_40011/creating-a-spark-standalone-cluster-with-docker-and-docker-compose-ba9d743a157f
 ```
 docker build -t spark:latest -f kubernetes/dockerfiles/spark/Dockerfile .
 

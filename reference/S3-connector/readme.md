@@ -1,4 +1,6 @@
 https://sparkbyexamples.com/spark/spark-read-text-file-from-s3/#:~:text=2.1%20text()%20%E2%80%93%20Read%20text,all%20files%20from%20a%20directory.
+
+http://deploymentzone.com/2015/12/20/s3a-on-spark-on-aws-ec2/
 ```
 spark-shell --jars hadoop-aws-2.7.3.jar --conf spark.s3.access.key=AKIAW4... --conf spark.s3.secret.key=kYzfp...
 

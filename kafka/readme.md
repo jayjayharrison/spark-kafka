@@ -40,3 +40,21 @@ for x in {1..100}; do echo "Message $x : ${message[$(( ${RANDOM} % ${#message[@]
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
 ```
 
+### Cluster Env
+```
+/opt/kafka/bin/kafka-topics.sh \
+  --create \
+  --zookeeper kdbroker01.itversity.com:2181,kdbroker02.itversity.com:2181,kdbroker03.itversity.com:2181 \
+  --replication-factor 1 \
+  --partitions 1 \
+  --topic test
+
+/opt/kafka/bin/kafka-console-producer.sh \
+  --broker-list kdbroker04.itversity.com:9092,kdbroker05.itversity.com:9092 \
+  --topic test
+
+/opt/kafka/bin/kafka-console-consumer.sh \
+  --bootstrap-server kdbroker04.itversity.com:9092,kdbroker05.itversity.com:9092 \
+  --topic test \
+  --from-beginning
+```

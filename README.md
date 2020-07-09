@@ -7,10 +7,14 @@ val spark = SparkSession.builder
 .appName("SparkSessionExample") 
 .master("local[4]") 		// not need to set this in production, when not mentioned, it will refer to default config file
 .config("spark.sql.warehouse.dir", "target/spark-warehouse") / not need to set this, it will refer to default config file
+.config("spark.cores.max", "10") //cap executor. in standalone cluster, app will consume all core by default
 .enableHiveSupport() //enables access to Hive metastore, Hive serdes, and Hive udfs.
 .getOrCreate
 import spark.implicits._
 import org.apache.spark.sql.functions.{col,lit}
+
+
+
 ```
 # 2. DataFrame basic Transformation
 ```

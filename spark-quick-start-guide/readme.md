@@ -52,3 +52,36 @@ df.write.partitionBy("key").format("hive").saveAsTable("hive_part_tbl")
 ```
 sql(s"CREATE EXTERNAL TABLE table200(key BIGINT, value STRING) ROW FORMAT DELIMITED fields TERMINATED by ',' lines TERMINATED by '\\n' stored as TEXTFILE location '/home/ec2-user/hive_external' ")
 ```
+### 80) Client mode, file IO
+in a cluster, spark would not be able to read a file unless the file exist in all assinged node
+to read a file from local, use file io api
+```
+### read from local and load to DF
+import scala.io.Source
+val s1 = Source.fromFile("data.txt").mkString;
+val data = s1.split("\\n")
+val df = data.toSeq.toDF
+
+### covert DF to standard String and write to file 
+
+import java.io.File
+import java.io.PrintWriter
+
+val string_array = df.map(row => row.mkString).collect 
+
+writeFile("out.txt",string_array)
+
+/**
+ * write a `Seq[String]` to the `filename`.
+ */
+def writeFile(filename: String, lines: Seq[String]): Unit = {
+    val file = new File(filename)
+    val bw = new BufferedWriter(new FileWriter(file))
+    for (line <- lines) {
+        bw.write(line)
+    }
+    bw.close()
+}
+
+val writer = new PrintWriter(new File("Write.txt"))
+```

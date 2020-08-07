@@ -4,7 +4,8 @@ gratefully learned from Thinh Duong's post
 
 Add: when dealing with dot(.) in field name
 need to enclose name with back tick \`
-val key = (prefixes :+ s"`${field.name}`" :+ s"`${subField.name}`").mkString(".")
+
+val key = (prefixes :+ s"\`${field.name}\`" :+ s"\`${subField.name}\`").mkString(".")
 
 ```
 import org.apache.spark.sql.{Column, DataFrame, SparkSession, functions => F}

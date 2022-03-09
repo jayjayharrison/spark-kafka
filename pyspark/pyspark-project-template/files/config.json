@@ -1,0 +1,12 @@
+{
+    "key": "values",
+
+
+
+    "spark.cassandra.connection.host":"192.168.3.20",
+    "spark.cassandra.connection.port": 9042,
+    "spark.cassandra.auth.username": "cassandra",
+    "spark.cassandra.auth.password": "cassandra",
+    "spark.sql.catalog.mycatalog": "com.datastax.spark.connector.datasource.CassandraCatalog"
+
+}

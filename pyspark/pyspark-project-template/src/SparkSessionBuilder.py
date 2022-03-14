@@ -40,9 +40,9 @@ class SparkSessionBuilder:
                          # .config("spark.memory.offHeap.size", "1g")
                          .config("spark.jars", jars)
                          .config('spark.files', files)
-                         .config("spark.hadoop.fs.s3a.endpoint", 'http://192.168.3.34:30021/')
-                         .config("spark.hadoop.fs.s3a.access.key", os.environ.get('MINIO_ACCESS_KEY_ID'))
-                         .config("spark.hadoop.fs.s3a.secret.key", os.environ.get('MINIO_SECRET_ACCESS_KEY'))
+                         .config("spark.hadoop.fs.s3a.endpoint", 'http://xxx.xxx.x.xx:xxxxx/')
+                         .config("spark.hadoop.fs.s3a.access.key", os.environ.get('ACCESS_KEY_ID'))
+                         .config("spark.hadoop.fs.s3a.secret.key", os.environ.get('SECRET_ACCESS_KEY'))
                          .config("spark.local.dir", self.temp_dir)
                          )
         for key, val in spark_config.items():

@@ -1,0 +1,15 @@
+pyspark --packages com.datastax.spark:spark-cassandra-connector_2.12:3.0.0 --conf spark.sql.extensions=com.datastax.spark.connector.CassandraSparkExtensions
+
+spark.conf.set("spark.cassandra.connection.host","xxxx")
+spark.conf.set("spark.cassandra.connection.port", 9042)
+spark.conf.set("spark.cassandra.auth.username", "cassandra")
+spark.conf.set("spark.cassandra.auth.password", "cassandra")
+spark.conf.set("spark.sql.catalog.mycatalog", "com.datastax.spark.connector.datasource.CassandraCatalog")
+
+spark.sql("SHOW NAMESPACES FROM mycatalog").show()
+spark.sql("SHOW TABLES FROM mycatalog.mssv").show()
+
+spark.sql("select * from mycatalog.mssv.tanks_spec limit 1").show
+spark.sql("SELECT COUNT(*) FROM mycatalog.mssv.mssv_table").show()
+
+

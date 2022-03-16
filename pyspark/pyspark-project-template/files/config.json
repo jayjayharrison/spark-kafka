@@ -1,10 +1,16 @@
 {
     "key": "values",
 
+    "spark.hadoop.fs.s3a.endpoint":"http://1xxx",
+"spark.hadoop.fs.s3a.access.key": "xx",
+"spark.hadoop.fs.s3a.secret.key": "xxx",
 
 
-    "spark.cassandra.connection.host":"192.168.3.20",
-    "spark.cassandra.connection.port": 9042,
+
+
+
+    "spark.cassandra.connection.host":"xxx",
+    "spark.cassandra.connection.port": "xxxx",
     "spark.cassandra.auth.username": "cassandra",
     "spark.cassandra.auth.password": "cassandra",
     "spark.sql.catalog.mycatalog": "com.datastax.spark.connector.datasource.CassandraCatalog"

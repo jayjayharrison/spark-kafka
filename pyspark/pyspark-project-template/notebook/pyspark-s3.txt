@@ -1,0 +1,14 @@
+pyspark --conf spark.hadoop.fs.s3a.endpoint=http://192.168.3.34:30021/ --conf spark.hadoop.fs.s3a.access.key=jwei --conf spark.hadoop.fs.s3a.secret.key=69Velo812
+
+# setting config after sc doesnt work for same reason
+spark.conf.set("spark.hadoop.fs.s3a.endpoint", 'http://xxxx')
+spark.conf.set("spark.hadoop.fs.s3a.access.key", 'jwei')
+spark.conf.set("spark.hadoop.fs.s3a.secret.key", 'xxxx')
+
+sc._conf.set("spark.hadoop.fs.s3a.endpoint", 'http://xxxx')
+sc._conf.set("spark.hadoop.fs.s3a.access.key", 'jwei')
+sc._conf.set("spark.hadoop.fs.s3a.secret.key", 'xxx')
+
+
+df2 = spark.read.json(path='s3a://xxxx')
+df2.show()

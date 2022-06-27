@@ -1,5 +1,14 @@
 ## DF-Transformation-Quick-Reference-Sheet
 
+# helpful conf
+
+```
+
+--conf spark.sql.sources.partitionOverwriteMode=dynamic
+
+```
+
+
 # 1. Create spark session 
 ```
 import org.apache.spark.sql.SparkSession

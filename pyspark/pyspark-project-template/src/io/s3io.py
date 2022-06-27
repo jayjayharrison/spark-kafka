@@ -20,7 +20,7 @@ class S3IO:
             's3',
             aws_access_key_id='xxx',
             aws_secret_access_key='xxx',
-            endpoint_url='http://192.168.2.32:30021/'
+            endpoint_url='http:/0.0.0.0:30021/'
     '''
 
     def __init__(self, endpoint_url=None):

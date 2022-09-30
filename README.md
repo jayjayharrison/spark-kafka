@@ -131,6 +131,46 @@ val cleaned_df = srcDf.columns.foldLeft(srcDf) {
                                            ) 
                                       }  
 ```
+### 2.9.  UDF (pyspark)
+```
+from pyspark.sql import functions
+from pyspark.sql import types
+
+test_df = spark.createDataFrame([
+    ('abcabc','c2'),
+    ('efgefg','c2'),
+    ('123321','c2')
+], schema='a string, b string')
+
+
+def my_udf(a:str):
+    return a.upper()
+
+upper_case_udf = functions.udf(my_udf, types.StringType())
+
+test_df.select(upper_case_udf("a")).show()
+
+
+```
+### 2.10.  mapPartition (pyspark)
+
+```
+# when you need to do heavy initiation, use mapPartition
+from pyspark.sql import Row
+
+def transform_partition(partition):
+    # load model,  connect to db, etc
+    model = hub.load("xyz")
+    for row in partition:
+        print(row.asDict())
+	prediction = model(row.field1)
+        yield Row(**row.asDict(), prediction=prediction)
+	
+df.rdd.mapPartitions(transform_partition).toDF().show()
+
+```
+
+
 # 3. DataFrame Reader and Writer; CSV with options,  Schema , timestampFormat
 ```
 jay,2014-01-04 13:43:14.653

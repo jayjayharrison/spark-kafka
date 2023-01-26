@@ -99,8 +99,15 @@ empDF.select($"*", rank().over(Window.partitionBy($"deptno").orderBy($"sal".desc
 //using withColumn
 empDF.withColumn("rank", rank() over Window.partitionBy("deptno").orderBy($"sal".desc)).filter($"rank" === 1).show()
 ```
-### 2.5. Window Frame, Find min of salary; unboundedfllowwing represent bottom most row when doing desc ordering  
-#### default window frame is 'range between unbounded preceding and current row', then in desc ordering, current row is always the last so need to explictly specify window frame. If use min(salary)order by asc, then default frame will also work
+### 2.5. Window Frame, Find min of salary; 
+#### by default window frame is 'range between unbounded preceding and current row', preceding mean the row before(above or from top of the table to current row). unbounded following represent bottom of the table
+#### using min()
+```
+select min(salary) over (partition by dept_no order by sal ASC)
+// is using order by DESC then, this would return the same salary as current row.
+```
+#### default window frame is 'range between unbounded preceding and current row', then in desc ordering, current row is always the last so need to explictly specify window frame.
+#### using last(),  last mean the last/bottom row of the table.  to get the minimu, so the order must be Desc,then min will be on the bottom, This will required change the frame to current and unbounded following.  If using first() then you can keep the order as ASC, and default frame.
 ```
 empDF.select($"*", last($"sal").over(Window.partitionBy($"deptno").orderBy($"sal".desc).rowsBetween(Window.currentRow, Window.unboundedFollowing)) as "rank").show
 ```

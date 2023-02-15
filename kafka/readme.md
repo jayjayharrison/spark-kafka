@@ -2,6 +2,9 @@
 1. Kafka topic can be divided into multiple partitions
 2. Each partition stored different record (thats what provides the scalablity/parallelism)
 3. In a consumer group, One consumer can read record from multiple partitions, but one partitions can not be read by more than one consumer.
+4. You can not control consumer to read from specific partition. 
+5. When a consumer group consumes the partitions of a topic, Kafka makes sure that each partition is consumed by exactly one consumer in the group.
+6. If there is more consumer then the partitions, the extra consumer will stay idles.
 
 
 /usr/hdp/current/kafka-broker/

@@ -1,3 +1,9 @@
+## Concepts
+1. Kafka topic can be divided into multiple partitions
+2. Each partition stored different record (thats what provides the scalablity/parallelism)
+3. In a consumer group, One consumer can read record from multiple partitions, but one partitions can not be read by more than one consumer.
+
+
 /usr/hdp/current/kafka-broker/
 
 ## Kafka Quick Start

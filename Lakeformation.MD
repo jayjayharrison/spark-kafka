@@ -3,7 +3,7 @@
 3. 
 
 
-### Data lake locations: The S3 path which Lake formation will start to manage and apply its permission layer. If you don't specify the Data Lake Location, Lakeformation permission management will not do anything
+### Data lake locations: The S3 path which Lake formation will start to manage and apply its permission layer. If you don't specify the Data Lake Location, Lakeformation permission management will not do anything. Without this, you can create any table point to any location.
 
 ### Data Location Permission: Give specific role the permission to a Data Lake Location, this will allow role to Create Table using that location. 
 

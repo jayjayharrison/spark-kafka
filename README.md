@@ -8,6 +8,13 @@
 
 ```
 
+use assumeRole for specific buckets
+```
+role_arn = 'xxxx'
+spark.conf.set(f"fs.s3a.bucket.{bucket_name}.assumed.role.arn", role_arn)
+spark.conf.set(f"fs.s3a.bucket.{bucket_name}.aws.credentials.provider", "org.apache.hadoop.fs.s3a.auth.AssumedRoleCredentialProvider")
+```
+
 
 # 1. Create spark session 
 ```
